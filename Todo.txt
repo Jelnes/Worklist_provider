@@ -1,1 +1,16 @@
+* Utvidelse av testing *
+  - Utvide NONASCII tegn test (kinesiks, indisk, russisk?). Spørre hvilke
+  - Sette opp generator ved generering av worklistdata (sende 1 og 1 element når de blir generert)
+  - legge inn delay ved innsending av worklists
+  - Huge worklist
+  - corrupt worklist (streng lengde, overflow)
+  - minimal worklist (minimalt med info)
+      - Modality woklist attributes
+  - maksimal worklist (maksimalt med info)
+      - Modality woklist attributes
+  - 
+* Testdriven developmente (tdd) *
+  - sjekke at prosjektet tar i bruk "tdd"
 
+
+*  * 
