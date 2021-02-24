@@ -1,0 +1,28 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Main build script for building distributable wheel packages -->
+  
+  <PropertyGroup>
+    <ObjDir>$(TEST_ROOT)\obj\pyworklistserver\</ObjDir>
+    <OutDir>$(TEST_ROOT)\devutils\PyWorklistServer\</OutDir>
+    <IntDir>$(MSBuildThisFileDirectory)\build\</IntDir>
+    <EggDir>$(MSBuildThisFileDirectory)\pyworklistserver.egg-info\</EggDir>
+    <TestOutDir>$(TEST_ROOT)\UnitTestResults\</TestOutDir>
+  </PropertyGroup>
+
+  <Target Name="Test">
+    <Exec Command="py -3 -m pytest tests\worklist_server_tests.py --junitxml=$(TestOutDir)PyWorklistServer.xml" WorkingDirectory="$(MSBuildThisFileDirectory)"/>
+  </Target>
+  
+  <Target Name="Clean">
+    <RemoveDir Directories="$(ObjDir)" />
+    <RemoveDir Directories="$(OutDir)" />
+    <RemoveDir Directories="$(IntDir)" />
+    <RemoveDir Directories="$(EggDir)" />
+  </Target>
+
+  <Target Name="Build" DependsOnTargets="Test;Clean">
+    <Exec Command="py -3 setup.py bdist_wheel --verbose --dist-dir=$(OutDir) --bdist-dir=$(ObjDir)" WorkingDirectory="$(MSBuildThisFileDirectory)"/>
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)readme.md" DestinationFolder="$(OutDir)" />
+  </Target>
+ 
+</Project>
