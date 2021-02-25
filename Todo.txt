@@ -13,4 +13,10 @@
   - sjekke at prosjektet tar i bruk "tdd"
 
 
-*  * 
+* Spørsmål til møte *
+  - Hvilke Ikke ASCII tegn skal vi utvide til? (evt hvilke skal vi ikke?)
+  - Hvilke Dicom tags er minimumskrav?
+  - hvilke Dicom tags er Maksimum?
+  - Generator
+  - Hvilke funskjon/utvidelse skal vi starte med (prioriterings liste)
+  - Hvor finner vi Dicom Tagsene som er lagt inn
