@@ -15,8 +15,10 @@
 
 * Spørsmål til møte *
   - Hvilke Ikke ASCII tegn skal vi utvide til? (evt hvilke skal vi ikke?)
+      Kan teste i begrensede mengder med russiske/kinesiske andre tegn
   - Hvilke Dicom tags er minimumskrav?
   - hvilke Dicom tags er Maksimum?
   - Generator
+    Ca. Fullført
   - Hvilke funskjon/utvidelse skal vi starte med (prioriterings liste)
   - Hvor finner vi Dicom Tagsene som er lagt inn
