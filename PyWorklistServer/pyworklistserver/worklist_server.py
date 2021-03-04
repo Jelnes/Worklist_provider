@@ -42,13 +42,31 @@ class WorklistServer:
 
     def _on_find(self, event, app_logger):
         """ Event handler for C-FIND requests """
-        worklist_items = self._worklist_factory.get_worklist(100)
+        
+        i = 0
+        while i < 100:
+            worklist_items = self._worklist_factory.get_worklist(4)
+            clean_worklist_items = self._worklist_factory.get_clean_worklist(1)
+            for worklist_item in worklist_items:
+                if i == 100:
+                    return
+                if event.is_cancelled:
+                    app_logger.info('Exams are cancelled')
+                    yield (0xFE00, None)  # Check if C-CANCEL has been received
+                    return  
+                i += 1
+                yield (0xFF00, worklist_item)
+                    
+            for clean_worklist_item in clean_worklist_items:
+                if i == 100:
+                    return
+                if event.is_cancelled:
+                    app_logger.info('Exams are cancelled')
+                    yield (0xFE00, None)  # Check if C-CANCEL has been received
+                    return 
+                i += 1
+                yield (0xFF00, clean_worklist_item)
         #app_logger.info('Created worklist with {} exams'.format(len(worklist_items)))
         
-        for worklist_item in worklist_items:
-            if event.is_cancelled:
-                app_logger.info('Exams are cancelled')
-                yield (0xFE00, None)  # Check if C-CANCEL has been received
-                return    
-            yield (0xFF00, worklist_item)
+        
         return    
