@@ -89,6 +89,45 @@ class RandomWorklist:
             yield worklist_item
         #return worklist
 
+    def get_clean_worklist(self, num_items):
+        """ Generate a random worklist with random number of worklist items """
+        #worklist = []
+        #num_items = random.randrange(1, 100)
+        worklist_item = Dataset()
+        worklist_item.StudyInstanceUID = generate_uid('1.2.840.113619.2.391.6789.')
+        worklist_item.Modality = 'US'
+        worklist_item.SpecificCharacterSet = self._specific_charset
+        worklist_item.AccessionNumber = _random_unicode_string(16)
+        worklist_item.PatientBirthDate = _random_dicom_date_after_1900()
+        worklist_item.PatientName = self._get_person_name()
+        worklist_item.PatientID = ('Arne ')
+        worklist_item.IssuerOfPatientID = _extend_with_random_to_length('Issuer of patient id ', 64)
+        worklist_item.PatientWeight = str(random.uniform(10.0, 150.0))[:16]
+        worklist_item.PatientSize = str(random.uniform(1.0, 2.5))[:16]
+        worklist_item.AdmissionID= _extend_with_random_to_length('Admission id ', 64)
+        worklist_item.RequestedProcedureID = _extend_with_random_to_length('Step id ', 16)
+        worklist_item.RequestedProcedureDescription = _extend_with_random_to_length('Step description ', 64)
+
+        otherPatientIdsSq = [Dataset(), Dataset()]
+        for otherPatientId in otherPatientIdsSq:
+            otherPatientId.PatientID = _extend_with_random_to_length('Other patient id ', 64)
+            otherPatientId.IssuerOfPatientID = _extend_with_random_to_length('Issuer of patient id ', 64)
+            otherPatientId.TypeOfPatientID = 'TEXT'
+
+        worklist_item.OtherPatientIDsSequence = otherPatientIdsSq
+
+        step = Dataset()
+        step.ScheduledPerformingPhysicianName = self._get_person_name()
+        step.ScheduledProcedureStepStartDate = _random_dicom_date_after_1900()
+        step.ScheduledProcedureStepStartTime = _random_dicom_time()
+        step.ScheduledProcedureStepDescription = _extend_with_random_to_length('Scheduled procedure step desc ', 64)
+        step.CommentsOnTheScheduledProcedureStep = _extend_with_random_to_length('Scheduled step comments ', 10240)
+        worklist_item.ScheduledProcedureStepSequence = [step]
+                # Other patient ID sequence patientid issuer of patient id
+
+        yield worklist_item
+        #return worklist
+
     def _get_person_name(self):
         """ Create a random person name and truncate the name components according to Vivid bug """
         return _random_person_name(32)[:_VIVID_HACK_MAX_PERSON_NAME]  # fix for wrong handling in EchoPAC/Scanner
