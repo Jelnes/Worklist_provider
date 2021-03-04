@@ -44,14 +44,14 @@ _VIVID_HACK_MAX_PERSON_NAME = 64
 
 class RandomWorklist:
     """ Generator for random worklists """
-
+    #num_items = random.randrange(1, 100)
     def __init__(self, specificCharSet):
         self._specific_charset = specificCharSet
 
-    def get_worklist(self):
+    def get_worklist(self, num_items):
         """ Generate a random worklist with random number of worklist items """
-        worklist = []
-        num_items = random.randrange(1, 100)
+        #worklist = []
+        #num_items = random.randrange(1, 100)
         for i in range(0, num_items):
             worklist_item = Dataset()
             worklist_item.StudyInstanceUID = generate_uid('1.2.840.113619.2.391.6789.')
@@ -84,10 +84,10 @@ class RandomWorklist:
             step.CommentsOnTheScheduledProcedureStep = _extend_with_random_to_length('Scheduled step comments ', 10240)
             worklist_item.ScheduledProcedureStepSequence = [step]
 
-            # Other patient ID sequence patientid issuer of patient id
+                # Other patient ID sequence patientid issuer of patient id
 
-            worklist.append(worklist_item)
-        return worklist
+            yield worklist_item
+        #return worklist
 
     def _get_person_name(self):
         """ Create a random person name and truncate the name components according to Vivid bug """
