@@ -1,7 +1,5 @@
 """ Worklist generator classes """
 
-""" Dette er en test """
-
 import datetime
 import random
 import string
