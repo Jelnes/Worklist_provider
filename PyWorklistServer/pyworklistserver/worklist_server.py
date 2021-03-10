@@ -23,12 +23,11 @@ class WorklistServer:
         self._server = None
 
     """Return Function for seed-value"""
-    def get_seedNumber():
+    def get_seedNumber(self):
         if user_config.seed_Number == 0:
             return random.randrange(1, 1000000)
         return user_config.seed_Number
 
-        return seed_Number
     def start(self):
         """ Start the server and listen to specified address and port """
         ae = AE(self._config.ae_title)
