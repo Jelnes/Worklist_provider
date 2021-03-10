@@ -20,12 +20,7 @@ seed_Number = 0
 
 
 
-"""Return Function for seed-value"""
-def get_seedNumber():
-    if seed_Number == 0:
-        return random.randrange(1, 1000000)
-    
-    return seed_Number
+
 
 
         

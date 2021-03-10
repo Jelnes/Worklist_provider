@@ -1,9 +1,11 @@
 """ DICOM server implementation that responds to C-FIND requests"""
+import random
 from pynetdicom import AE
 from pynetdicom import evt
 from pynetdicom.sop_class import ModalityWorklistInformationFind
 
 from pyworklistserver import worklist
+from pyworklistserver import user_config
 
 class WorklistServer:
     """ Simple worklist server with support for one client. This
@@ -20,6 +22,13 @@ class WorklistServer:
         ]
         self._server = None
 
+    """Return Function for seed-value"""
+    def get_seedNumber():
+        if user_config.seed_Number == 0:
+            return random.randrange(1, 1000000)
+        return user_config.seed_Number
+
+        return seed_Number
     def start(self):
         """ Start the server and listen to specified address and port """
         ae = AE(self._config.ae_title)
@@ -42,7 +51,7 @@ class WorklistServer:
 
     def _on_find(self, event, app_logger):
         """ Event handler for C-FIND requests """
-        
+        random.seed(self.get_seedNumber())
         i = 0
         while i < 100:
             worklist_items = self._worklist_factory.get_worklist(4)
@@ -69,4 +78,4 @@ class WorklistServer:
         #app_logger.info('Created worklist with {} exams'.format(len(worklist_items)))
         
         
-        return    
+        return
