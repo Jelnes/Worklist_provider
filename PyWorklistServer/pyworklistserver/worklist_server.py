@@ -22,8 +22,9 @@ class WorklistServer:
         ]
         self._server = None
 
-    """Return Function for seed-value"""
+
     def get_seedNumber(self):
+    """Return Function for seed-value"""
         if user_config.seed_Number == 0:
             return random.randrange(1, 1000000)
         return user_config.seed_Number
