@@ -108,7 +108,7 @@ class WorklistServerTests(unittest.TestCase):
 
 
     def test_RequireThat_WorklistRequestWithSeed_Replicates_Worklist(self):
-        client = worklist.client.WorklistClient(self._server_confic.network_adress)
+        client = worklist_client.WorklistClient(self._server_config.network_address)
 
         query_dataset = Dataset()
         query_dataset.PatientName = '*'
@@ -120,7 +120,7 @@ class WorklistServerTests(unittest.TestCase):
         worklist_item_two = worklist_two[10]
 
         self.assertEqual((worklist_item_one.PatientID), (worklist_item_two.PatientID))
-
+        
 
 
 
