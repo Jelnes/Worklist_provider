@@ -96,17 +96,35 @@ class WorklistServerTests(unittest.TestCase):
         worklist_item = worklist[4]
 
         self.assertEqual((worklist_item.PatientID), 'Arne')
-        
+
 
     def test_RequireThat_WorklistRequest_ReturnsWorklistSize100(self):
         client = worklist_client.WorklistClient(self._server_config.network_address)
- 
+
         query_dataset = Dataset()
         query_dataset.PatientName = '*'
-        worklist = client.get_worklist(query_dataset)        
+        worklist = client.get_worklist(query_dataset)
         self.assertTrue(len(worklist) == 100)
 
-        
+
+    def test_RequireThat_WorklistRequestWithSeed_Replicates_Worklist(self):
+        client = worklist.client.WorklistClient(self._server_confic.network_adress)
+
+        query_dataset = Dataset()
+        query_dataset.PatientName = '*'
+
+        worklist_one = client.get_worklist(query_dataset)
+        worklist_two = client.get_worklist(query_dataset)
+
+        worklist_item_one = worklist_one[10]
+        worklist_item_two = worklist_two[10]
+
+        self.assertEqual((worklist_item_one.PatientID), (worklist_item_two.PatientID))
+
+
+
+
+
 if __name__ == '__main__':
     _setup_logger_for_test()
     unittest.main()
