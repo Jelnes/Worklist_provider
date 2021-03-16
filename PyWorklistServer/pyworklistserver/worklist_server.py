@@ -17,13 +17,21 @@ class WorklistServer:
         self._logger = app_logger
         self._blocking = blocking
         self._worklist_factory = worklist.RandomWorklist('ISO_IR 100')
+        self._seedNumber = 0
         self._handlers = [
             (evt.EVT_C_FIND, self._on_find, [app_logger]),
         ]
         self._server = None
 
+    def set_seedNumber(self, seed_Number):
+        """Set seed-value, only used in testing"""
+        self._seedNumber = seed_Number
+
     def get_seedNumber(self):
         """Return Function for seed-value"""
+        if self._seedNumber > 0:
+            return self._seedNumber
+
         if user_config.seed_Number == 0:
             return random.randrange(1, 1000000)
         return user_config.seed_Number
