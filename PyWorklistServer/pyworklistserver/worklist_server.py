@@ -76,4 +76,5 @@ class WorklistServer:
                         return
                     i += 1
                     yield (0xFF00, random_worklist_item)
+        app_logger.info('Created worklist with {} exams'.format(totalExams))
         return
