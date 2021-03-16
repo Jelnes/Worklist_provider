@@ -55,28 +55,20 @@ class WorklistServer:
         totalRate = user_config.rateOfRandomExams + user_config.rateOfCleanExams
         totalExams = random.randrange(user_config.minAmountOfWorklistExams, user_config.maxAmountOfWorklistExams)
 
-        i = 0
-        while i < totalExams:
+        for i in range (totalExams):
             r = random.randrange(1, totalRate)
             if r <= user_config.rateOfCleanExams:
-                clean_worklist_items = self._worklist_factory.get_clean_worklist()
-                for clean_worklist_item in clean_worklist_items:
-                    if event.is_cancelled:
-                        app_logger.info('Exams are cancelled')
-                        yield (0xFE00, None)  # Check if C-CANCEL has been received
-                        return
-                    i += 1
-                    yield (0xFF00, clean_worklist_item)
+                worklist = self._worklist_factory.get_clean_worklist()
+            else:
+                worklist = self._worklist_factory.get_random_worklist()
 
-            elif r > user_config.rateOfCleanExams:
-                random_worklist_items = self._worklist_factory.get_random_worklist()
-                for random_worklist_item in random_worklist_items:
-                    if event.is_cancelled:
-                        app_logger.info('Exams are cancelled')
-                        yield (0xFE00, None)  # Check if C-CANCEL has been received
-                        return
-                    i += 1
-                    yield (0xFF00, random_worklist_item)
+            if event.is_cancelled:
+                app_logger.info('Exams are cancelled')
+                yield (0xFE00, None)  # Check if C-CANCEL has been received
+                return
+
+            yield (0xFF00, worklist)
+
         app_logger.info('Created worklist with {} exams'.format(totalExams))
         app_logger.info('The seed used is: {}'.format(seed))
         return
