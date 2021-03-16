@@ -12,9 +12,10 @@ class WorklistServer:
     implementation class is responsible for network communication with
     the client. """
 
-    def __init__(self, serverConfig, app_logger, blocking):
+    def __init__(self, serverConfig, app_logger, config_logger, blocking):
         self._config = serverConfig
         self._logger = app_logger
+        self._config_logger = config_logger
         self._blocking = blocking
         self._worklist_factory = worklist.RandomWorklist('ISO_IR 100')
         self._handlers = [
@@ -48,7 +49,7 @@ class WorklistServer:
         self._logger.info('Shutting down')
         self._server.shutdown()
 
-    def _on_find(self, event, app_logger):
+    def _on_find(self, event, app_logger, config_logger):
         """ Event handler for C-FIND requests """
         seed = self.get_seedNumber()
         random.seed(seed)
@@ -78,5 +79,5 @@ class WorklistServer:
                     i += 1
                     yield (0xFF00, random_worklist_item)
         app_logger.info('Created worklist with {} exams'.format(totalExams))
-        app_logger.info('The seed used is: {}'.format(seed))
+        config_logger.info('The seed used is: {}'.format(seed))
         return
