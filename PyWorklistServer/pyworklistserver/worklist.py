@@ -84,8 +84,6 @@ class RandomWorklist:
             step.CommentsOnTheScheduledProcedureStep = _extend_with_random_to_length('Scheduled step comments ', 10240)
             worklist_item.ScheduledProcedureStepSequence = [step]
 
-                # Other patient ID sequence patientid issuer of patient id
-
         yield worklist_item
 
     def get_clean_worklist(self):
@@ -121,12 +119,9 @@ class RandomWorklist:
         step.ScheduledProcedureStepDescription = _extend_with_random_to_length('Scheduled procedure step desc ', 64)
         step.CommentsOnTheScheduledProcedureStep = _extend_with_random_to_length('Scheduled step comments ', 10240)
         worklist_item.ScheduledProcedureStepSequence = [step]
-                # Other patient ID sequence patientid issuer of patient id
 
         yield worklist_item
-        #return worklist
 
     def _get_person_name(self):
         """ Create a random person name and truncate the name components according to Vivid bug """
         return _random_person_name(32)[:_VIVID_HACK_MAX_PERSON_NAME]  # fix for wrong handling in EchoPAC/Scanner
-    
