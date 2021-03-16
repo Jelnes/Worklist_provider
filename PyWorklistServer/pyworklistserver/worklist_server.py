@@ -22,7 +22,6 @@ class WorklistServer:
         ]
         self._server = None
 
-
     def get_seedNumber(self):
         """Return Function for seed-value"""
         if user_config.seed_Number == 0:
@@ -34,14 +33,14 @@ class WorklistServer:
         ae = AE(self._config.ae_title)
         ae.add_supported_context(ModalityWorklistInformationFind)
         self._logger.info('Running worklist server with AE title {}, ip: {}, listening to port: {}'.format(
-            self._config.ae_title, 
+            self._config.ae_title,
             self._config.network_address.address,
             self._config.network_address.port)
         )
 
         self._server = ae.start_server(
-            self._config.network_address, 
-            evt_handlers=self._handlers, 
+            self._config.network_address,
+            evt_handlers=self._handlers,
             block=self._blocking)
 
     def stop(self):
@@ -77,34 +76,4 @@ class WorklistServer:
                         return
                     i += 1
                     yield (0xFF00, random_worklist_item)
-
         return
-
-
-
-
-          #  worklist_items = self._worklist_factory.get_worklist(4)
-           # clean_worklist_items = self._worklist_factory.get_clean_worklist(1)
-            #for worklist_item in worklist_items:
-             #   if i == 100:
-              #      return
-               # if event.is_cancelled:
-                #    app_logger.info('Exams are cancelled')
-                #    yield (0xFE00, None)  # Check if C-CANCEL has been received
-                #    return
-                #i += 1
-                #yield (0xFF00, worklist_item)
-                    
-            #for clean_worklist_item in clean_worklist_items:
-             #   if i == 100:
-              #      return
-               # if event.is_cancelled:
-                #    app_logger.info('Exams are cancelled')
-                 #   yield (0xFE00, None)  # Check if C-CANCEL has been received
-                 #   return
-               # i += 1
-                #yield (0xFF00, clean_worklist_item)
-        #app_logger.info('Created worklist with {} exams'.format(len(worklist_items)))
-        
-        
-        #return
