@@ -50,8 +50,8 @@ class RandomWorklist:
     def __init__(self, specificCharSet):
         self._specific_charset = specificCharSet
 
-    def get_worklist(self):
-        """ Generate a random worklist with random number of worklist items """
+    def get_random_worklist(self):
+        """ Generate a random worklist """
 
         worklist_item = Dataset()
         worklist_item.StudyInstanceUID = generate_uid('1.2.840.113619.2.391.6789.')
@@ -87,7 +87,7 @@ class RandomWorklist:
         yield worklist_item
 
     def get_clean_worklist(self):
-        """ Generate a random worklist with random number of worklist items """
+        """ Generates a clean worklist """
 
         worklist_item = Dataset()
         worklist_item.StudyInstanceUID = generate_uid('1.2.840.113619.2.391.6789.')

@@ -69,7 +69,7 @@ class WorklistServer:
                     yield (0xFF00, clean_worklist_item)
 
             elif r > user_config.rateOfCleanExams:
-                random_worklist_items = self._worklist_factory.get_worklist()
+                random_worklist_items = self._worklist_factory.get_random_worklist()
                 for random_worklist_item in random_worklist_items:
                     if event.is_cancelled:
                         app_logger.info('Exams are cancelled')
@@ -78,5 +78,5 @@ class WorklistServer:
                     i += 1
                     yield (0xFF00, random_worklist_item)
         app_logger.info('Created worklist with {} exams'.format(totalExams))
-        app_logger.info('The Seed used is: {}'.format(seed))
+        app_logger.info('The seed used is: {}'.format(seed))
         return
