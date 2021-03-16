@@ -84,7 +84,7 @@ class RandomWorklist:
             step.CommentsOnTheScheduledProcedureStep = _extend_with_random_to_length('Scheduled step comments ', 10240)
             worklist_item.ScheduledProcedureStepSequence = [step]
 
-        yield worklist_item
+        return worklist_item
 
     def get_clean_worklist(self):
         """ Generates a clean worklist """
@@ -120,7 +120,7 @@ class RandomWorklist:
         step.CommentsOnTheScheduledProcedureStep = _extend_with_random_to_length('Scheduled step comments ', 10240)
         worklist_item.ScheduledProcedureStepSequence = [step]
 
-        yield worklist_item
+        return worklist_item
 
     def _get_person_name(self):
         """ Create a random person name and truncate the name components according to Vivid bug """
