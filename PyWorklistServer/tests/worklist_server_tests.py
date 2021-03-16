@@ -3,6 +3,7 @@
 import unittest
 import logging
 import logging.handlers
+import random
 
 from context import pyworklistserver
 from pydicom.dataset import Dataset
@@ -10,6 +11,7 @@ from pydicom.dataset import Dataset
 import worklist_client
 from pyworklistserver import worklist_server
 from pyworklistserver import server_config
+from pyworklistserver import user_config
 
 def _setup_logger_for_test():
     formatter = logging.Formatter('%(levelname).1s: %(message)s')
@@ -96,35 +98,19 @@ class WorklistServerTests(unittest.TestCase):
         worklist_item = worklist[4]
 
         self.assertEqual((worklist_item.PatientID), 'Arne')
+        
 
-
-    def test_RequireThat_WorklistRequest_ReturnsWorklistSize100(self):
+    def test_RequireThat_WorklistRequest_ReturnsWorklistSize_BetweenMinMax(self):
         client = worklist_client.WorklistClient(self._server_config.network_address)
 
         query_dataset = Dataset()
         query_dataset.PatientName = '*'
         worklist = client.get_worklist(query_dataset)
-        self.assertTrue(len(worklist) == 100)
+        self.assertTrue(len(worklist) >= user_config.minAmountOfWorklistExams and len(worklist) <= user_config.maxAmountOfWorklistExams)
 
 
-    def test_RequireThat_WorklistRequestWithSeed_Replicates_Worklist(self):
-        client = worklist_client.WorklistClient(self._server_config.network_address)
 
-        query_dataset = Dataset()
-        query_dataset.PatientName = '*'
-
-        worklist_one = client.get_worklist(query_dataset)
-        worklist_two = client.get_worklist(query_dataset)
-
-        worklist_item_one = worklist_one[10]
-        worklist_item_two = worklist_two[10]
-
-        self.assertEqual((worklist_item_one.PatientID), (worklist_item_two.PatientID))
         
-
-
-
-
 if __name__ == '__main__':
     _setup_logger_for_test()
     unittest.main()
