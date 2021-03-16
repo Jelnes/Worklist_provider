@@ -12,9 +12,10 @@ class WorklistServer:
     implementation class is responsible for network communication with
     the client. """
 
-    def __init__(self, serverConfig, app_logger, blocking):
+    def __init__(self, serverConfig, app_logger, config_logger, blocking):
         self._config = serverConfig
         self._logger = app_logger
+        self._config_logger = config_logger
         self._blocking = blocking
         self._worklist_factory = worklist.RandomWorklist('ISO_IR 100')
         self._handlers = [
@@ -32,7 +33,7 @@ class WorklistServer:
         """ Start the server and listen to specified address and port """
         ae = AE(self._config.ae_title)
         ae.add_supported_context(ModalityWorklistInformationFind)
-        self._logger.info('Running worklist server with AE title {}, ip: {}, listening to port: {}'.format(
+        self._config_logger.info('Running worklist server with AE title {}, ip: {}, listening to port: {}'.format(
             self._config.ae_title,
             self._config.network_address.address,
             self._config.network_address.port)
@@ -78,5 +79,5 @@ class WorklistServer:
                     i += 1
                     yield (0xFF00, random_worklist_item)
         app_logger.info('Created worklist with {} exams'.format(totalExams))
-        app_logger.info('The seed used is: {}'.format(seed))
+        self._config_logger.info('The seed used is: {}'.format(seed))
         return
