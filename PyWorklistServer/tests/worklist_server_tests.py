@@ -98,7 +98,7 @@ class WorklistServerTests(unittest.TestCase):
         worklist_item = worklist[4]
 
         self.assertEqual((worklist_item.PatientID), 'Arne')
-        
+
 
     def test_RequireThat_WorklistRequest_ReturnsWorklistSize_BetweenMinMax(self):
         client = worklist_client.WorklistClient(self._server_config.network_address)
@@ -108,9 +108,47 @@ class WorklistServerTests(unittest.TestCase):
         worklist = client.get_worklist(query_dataset)
         self.assertTrue(len(worklist) >= user_config.minAmountOfWorklistExams and len(worklist) <= user_config.maxAmountOfWorklistExams)
 
+    def test_RequireThat_MulipleWorklistRequests_ReturnsWorklistWithSameLength_ByUseOfSeed(self):
+        client = worklist_client.WorklistClient(self._server_config.network_address)
+
+        query_dataset = Dataset()
+        query_dataset.PatientName = '*'
+
+        seed = random.randrange(1000)
+
+        random.seed(seed)
+        worklist_one = client.get_worklist(query_dataset)
+
+        random.seed(seed)
+        worklist_two = client.get_worklist(query_dataset)
+
+        self.assertEqual(len(worklist_one), len(worklist_two))
+
+    def test_RequireThat_MultipleWorklistRequests_ReturnsIdenticalWorklists_ByUseOfSeed(self):
+        client = worklist_client.WorklistClient(self._server_config.network_address)
+
+        query_dataset = Dataset()
+        query_dataset.PatientName = '*'
+
+        seed = random.randrange(1000)
+
+        random.seed(seed)
+        worklist_one = client.get_worklist(query_dataset)
+
+        random.seed(seed)
+        worklist_two = client.get_worklist(query_dataset)
+
+        exam = random.randrange(len(worklist_one))
+
+        worklist_item_one = worklist_one[exam]
+        worklist_item_two = worklist_two[exam]
+
+        self.assertEqual(worklist_item_one.PatientName, worklist_item_two.PatientName)
+        self.assertEqual(worklist_item_one.StudyInstanceUID, worklist_item_two.StudyInstanceUID)
+        self.assertEqual(worklist_item_one.PatientID, worklist_item_two.PatientID)
+        self.assertEqual(worklist_item_one.PatientSize, worklist_item_two.PatientSize)
 
 
-        
 if __name__ == '__main__':
     _setup_logger_for_test()
     unittest.main()

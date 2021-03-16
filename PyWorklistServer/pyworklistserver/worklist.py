@@ -54,7 +54,7 @@ class RandomWorklist:
         """ Generate a random worklist """
 
         worklist_item = Dataset()
-        worklist_item.StudyInstanceUID = generate_uid('1.2.840.113619.2.391.6789.')
+        worklist_item.StudyInstanceUID = generate_uid(prefix='1.2.840.113619.2.391.6789.', entropy_srcs=[_random_unicode_string(10), _random_unicode_string(10)])
         worklist_item.Modality = 'US'
         worklist_item.SpecificCharacterSet = self._specific_charset
         worklist_item.AccessionNumber = _random_unicode_string(16)
