@@ -50,7 +50,8 @@ class WorklistServer:
 
     def _on_find(self, event, app_logger):
         """ Event handler for C-FIND requests """
-        random.seed(self.get_seedNumber())
+        seed = self.get_seedNumber()
+        random.seed(seed)
         totalRate = user_config.rateOfRandomExams + user_config.rateOfCleanExams
         totalExams = random.randrange(user_config.minAmountOfWorklistExams, user_config.maxAmountOfWorklistExams)
 
@@ -77,4 +78,5 @@ class WorklistServer:
                     i += 1
                     yield (0xFF00, random_worklist_item)
         app_logger.info('Created worklist with {} exams'.format(totalExams))
+        app_logger.info('The Seed used is: {}'.format(seed))
         return
