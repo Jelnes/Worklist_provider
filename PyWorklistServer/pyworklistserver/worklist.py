@@ -43,6 +43,15 @@ def _random_dicom_time():
     seconds = random.randrange(0, 59)
     return '{:02}{:02}{:02}'.format(hour, minutes, seconds)
 
+def _get_random_length(max_len):
+    """ Return an int with size, either equal to defaultmax, or greater."""
+    r = random.randrange(1, 100)
+    if (r < 10):
+        length = random.randrange(max_len+1, max_len+10)
+    else:
+        length = max_len
+    return length
+
 _VIVID_HACK_MAX_PERSON_NAME = 64
 
 class RandomWorklist:
@@ -84,7 +93,7 @@ class RandomWorklist:
             step.CommentsOnTheScheduledProcedureStep = _extend_with_random_to_length('Scheduled step comments ', 10240)
             worklist_item.ScheduledProcedureStepSequence = [step]
 
-        return worklist_item
+        yield worklist_item
 
     def get_clean_worklist(self):
         """ Generates a clean worklist """
@@ -120,7 +129,7 @@ class RandomWorklist:
         step.CommentsOnTheScheduledProcedureStep = _extend_with_random_to_length('Scheduled step comments ', 10240)
         worklist_item.ScheduledProcedureStepSequence = [step]
 
-        return worklist_item
+        yield worklist_item
 
     def _get_person_name(self):
         """ Create a random person name and truncate the name components according to Vivid bug """
