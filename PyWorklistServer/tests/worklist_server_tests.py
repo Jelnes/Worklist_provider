@@ -4,6 +4,7 @@ import unittest
 import logging
 import logging.handlers
 import random
+import os
 
 from context import pyworklistserver
 from pydicom.dataset import Dataset
@@ -185,9 +186,30 @@ class WorklistServerTests(unittest.TestCase):
             self.assertEqual(worklist_item_one.ScheduledProcedureStepSequence[i].ScheduledProcedureStepDescription, worklist_item_two.ScheduledProcedureStepSequence[i].ScheduledProcedureStepDescription)
             self.assertEqual(worklist_item_one.ScheduledProcedureStepSequence[i].CommentsOnTheScheduledProcedureStep, worklist_item_two.ScheduledProcedureStepSequence[i].CommentsOnTheScheduledProcedureStep)
 
+    def test_RequireThat_Logfile_Returnslogfile_Withcontent(self):
+        client = worklist_client.WorklistClient(self._server_config.network_address)
 
+        query_dataset = Dataset()
 
+        query_dataset.PatientName = '*'
 
+        self.assertTrue(os.path.exists("logfile.txt"))
+        self.assertTrue(os.path.getsize("logfile.txt") > 0)
+
+    def test_RequireThat_Logfile_Appendsatcall(self):
+        client = worklist_client.WorklistClient(self._server_config.network_address)
+        query_dataset = Dataset()
+        query_dataset.PatientName = '*'
+
+        with open('logfile.txt', 'r') as file:
+            data1 = file.read()
+
+        client.get_worklist(query_dataset)
+
+        with open('logfile.txt', 'r') as file:
+            data2 = file.read()
+
+        self.assertTrue(data1 != data2)
 
 
 if __name__ == '__main__':
