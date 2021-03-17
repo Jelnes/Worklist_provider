@@ -1,5 +1,6 @@
 """ DICOM server implementation that responds to C-FIND requests"""
 import random
+import os
 from pynetdicom import AE
 from pynetdicom import evt
 from pynetdicom.sop_class import ModalityWorklistInformationFind
@@ -37,7 +38,10 @@ class WorklistServer:
             self._config.network_address.address,
             self._config.network_address.port)
         )
-
+        if os.path.exists("logfile.txt"):
+            os.remove("logfile.txt")
+        f = open("logfile.txt", "w+")
+        f.close()
         self._server = ae.start_server(
             self._config.network_address,
             evt_handlers=self._handlers,
@@ -71,4 +75,7 @@ class WorklistServer:
 
         app_logger.info('Created worklist with {} exams'.format(totalExams))
         app_logger.info('The seed used is: {}'.format(seed))
+        f = open("logfile.txt", "a+")
+        f.write('The seed used is: %d\n' % seed)
+        f.close()
         return
