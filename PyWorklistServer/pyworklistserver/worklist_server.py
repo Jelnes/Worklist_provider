@@ -30,6 +30,21 @@ class WorklistServer:
             return random.randrange(1, 1000000)
         return user_config.seed_Number
 
+    def setup_log_seed(self):
+        if os.path.exists("logfile.txt"):
+            os.remove("logfile.txt")
+
+        f = open("logfile.txt", "w+")
+        f.write('User_config:\trateOfRandomExams: %d\t rateOfCleanExams: %d\t minAmountOfWorklistExams: %d\t maxAmountOfWorklistExams: %d\n\n'
+        % (user_config.rateOfRandomExams, user_config.rateOfCleanExams, user_config.minAmountOfWorklistExams, user_config.maxAmountOfWorklistExams))
+
+        f.close()
+
+    def log_seed (seed):
+        f = open("logfile.txt", "a+")
+        f.write('%s\tSeed: %d\n' % (time.asctime(time.localtime()), seed))
+        f.close()
+
     def start(self):
         """ Start the server and listen to specified address and port """
         ae = AE(self._config.ae_title)
@@ -39,12 +54,9 @@ class WorklistServer:
             self._config.network_address.address,
             self._config.network_address.port)
         )
-        if os.path.exists("logfile.txt"):
-            os.remove("logfile.txt")
-        f = open("logfile.txt", "w+")
-        f.write('User_config:\trateOfRandomExams: %d\t rateOfCleanExams: %d\t minAmountOfWorklistExams: %d\t maxAmountOfWorklistExams: %d\n\n'
-        % (user_config.rateOfRandomExams, user_config.rateOfCleanExams, user_config.minAmountOfWorklistExams, user_config.maxAmountOfWorklistExams))
-        f.close()
+
+        self.setup_log_seed()
+
         self._server = ae.start_server(
             self._config.network_address,
             evt_handlers=self._handlers,
@@ -59,12 +71,11 @@ class WorklistServer:
         """ Event handler for C-FIND requests """
         seed = self.get_seedNumber()
         random.seed(seed)
+        self.log_seed(seed)
+
         totalRate = user_config.rateOfRandomExams + user_config.rateOfCleanExams
         totalExams = random.randrange(user_config.minAmountOfWorklistExams, user_config.maxAmountOfWorklistExams)
 
-        f = open("logfile.txt", "a+")
-        f.write('%s\tSeed: %d\n' % (time.asctime(time.localtime()), seed))
-        f.close()
 
         for i in range (totalExams):
             r = random.randrange(1, totalRate)
