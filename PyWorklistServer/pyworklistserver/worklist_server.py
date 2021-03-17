@@ -1,6 +1,7 @@
 """ DICOM server implementation that responds to C-FIND requests"""
 import random
 import os
+import time
 from pynetdicom import AE
 from pynetdicom import evt
 from pynetdicom.sop_class import ModalityWorklistInformationFind
@@ -59,6 +60,10 @@ class WorklistServer:
         totalRate = user_config.rateOfRandomExams + user_config.rateOfCleanExams
         totalExams = random.randrange(user_config.minAmountOfWorklistExams, user_config.maxAmountOfWorklistExams)
 
+        f = open("logfile.txt", "a+")
+        f.write('%s\tThe seed used is: %d\n' % (time.asctime(time.localtime()), seed))
+        f.close()
+
         for i in range (totalExams):
             r = random.randrange(1, totalRate)
             if r <= user_config.rateOfCleanExams:
@@ -75,7 +80,5 @@ class WorklistServer:
 
         app_logger.info('Created worklist with {} exams'.format(totalExams))
         app_logger.info('The seed used is: {}'.format(seed))
-        f = open("logfile.txt", "a+")
-        f.write('The seed used is: %d\n' % seed)
-        f.close()
+
         return
