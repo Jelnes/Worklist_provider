@@ -88,7 +88,6 @@ class PyDicomServer:
     def run_until_stopped(self):
         """ Start server and run it until stopped by Ctrl-C """
         self._server.start()
-        self._server.
         while self._running:
             time.sleep(0.1)
         self._server.stop()
