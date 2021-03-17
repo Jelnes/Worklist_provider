@@ -40,7 +40,7 @@ class WorklistServer:
 
         f.close()
 
-    def log_seed (seed):
+    def log_seed (self, seed):
         f = open("logfile.txt", "a+")
         f.write('%s\tSeed: %d\n' % (time.asctime(time.localtime()), seed))
         f.close()
