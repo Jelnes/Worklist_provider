@@ -95,7 +95,7 @@ class RandomWorklist:
             otherPatientId.IssuerOfPatientID = _extend_with_random_to_length('Issuer of patient id ', 64)
             otherPatientId.TypeOfPatientID = 'TEXT'
 
-            worklist_item.OtherPatientIDsSequence = otherPatientIdsSq
+        worklist_item.OtherPatientIDsSequence = otherPatientIdsSq
 
         step = Dataset()
         step.ScheduledPerformingPhysicianName = self._get_person_name()
