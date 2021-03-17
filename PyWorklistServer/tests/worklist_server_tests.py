@@ -164,6 +164,7 @@ class WorklistServerTests(unittest.TestCase):
         client = worklist_client.WorklistClient(self._server_config.network_address)
 
         query_dataset = Dataset()
+
         query_dataset.PatientName = '*'
 
         self.assertTrue(os.path.exists("logfile.txt"))
