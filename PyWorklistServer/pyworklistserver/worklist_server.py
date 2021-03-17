@@ -42,6 +42,8 @@ class WorklistServer:
         if os.path.exists("logfile.txt"):
             os.remove("logfile.txt")
         f = open("logfile.txt", "w+")
+        f.write('User_config:\trateOfRandomExams: %d\t rateOfCleanExams: %d\t minAmountOfWorklistExams: %d\t maxAmountOfWorklistExams: %d\n\n'
+        % (user_config.rateOfRandomExams, user_config.rateOfCleanExams, user_config.minAmountOfWorklistExams, user_config.maxAmountOfWorklistExams))
         f.close()
         self._server = ae.start_server(
             self._config.network_address,
@@ -62,9 +64,6 @@ class WorklistServer:
 
         f = open("logfile.txt", "a+")
         f.write('%s\tSeed: %d\n' % (time.asctime(time.localtime()), seed))
-        f.write('rateOfRandomExams: %d\t rateOfCleanExams: %d\t minAmountOfWorklistExams: %d\t maxAmountOfWorklistExams: %d\n\n'
-        % (user_config.rateOfRandomExams, user_config.rateOfCleanExams, user_config.minAmountOfWorklistExams, user_config.maxAmountOfWorklistExams))
-
         f.close()
 
         for i in range (totalExams):
