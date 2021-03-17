@@ -170,9 +170,20 @@ class WorklistServerTests(unittest.TestCase):
         self.assertTrue(os.path.exists("logfile.txt"))
         self.assertTrue(os.path.getsize("logfile.txt") > 0)
 
-        # worklist = client.get_worklist(query_dataset)
+    def test_RequireThat_Logfile_Appendsatcall(self):
+        client = worklist_client.WorklistClient(self._server_config.network_address)
+        query_dataset = Dataset()
+        query_dataset.PatientName = '*'
 
+        with open('logfile.txt', 'r') as file:
+            data1 = file.read()
 
+        worklist = client.get_worklist(query_dataset)
+
+        with open('logfile.txt', 'r') as file:
+            data2 = file.read()
+
+        self.assertTrue(data1 != data2)
 
 
 
