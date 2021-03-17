@@ -33,7 +33,6 @@ class WorklistServer:
     def setup_log_seed(self):
         if os.path.exists("logfile.txt"):
             os.remove("logfile.txt")
-
         f = open("logfile.txt", "w+")
         f.write('User_config:\trateOfRandomExams: %d\t rateOfCleanExams: %d\t minAmountOfWorklistExams: %d\t maxAmountOfWorklistExams: %d\n\n'
         % (user_config.rateOfRandomExams, user_config.rateOfCleanExams, user_config.minAmountOfWorklistExams, user_config.maxAmountOfWorklistExams))
@@ -75,7 +74,6 @@ class WorklistServer:
 
         totalRate = user_config.rateOfRandomExams + user_config.rateOfCleanExams
         totalExams = random.randrange(user_config.minAmountOfWorklistExams, user_config.maxAmountOfWorklistExams)
-
 
         for i in range (totalExams):
             r = random.randrange(1, totalRate)
