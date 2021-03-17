@@ -146,7 +146,22 @@ class WorklistServerTests(unittest.TestCase):
         self.assertEqual(worklist_item_one.AdmissionID, worklist_item_two.AdmissionID)
         self.assertEqual(worklist_item_one.RequestedProcedureID, worklist_item_two.RequestedProcedureID)
         self.assertEqual(worklist_item_one.RequestedProcedureDescription, worklist_item_two.RequestedProcedureDescription)
-        
+
+        for i in range(len(worklist_item_one.OtherPatientIDsSequence)):
+            self.assertEqual(worklist_item_one.OtherPatientIDsSequence[i].PatientID, worklist_item_two.OtherPatientIDsSequence[i].PatientID)
+            self.assertEqual(worklist_item_one.OtherPatientIDsSequence[i].IssuerOfPatientID, worklist_item_two.OtherPatientIDsSequence[i].IssuerOfPatientID)
+            self.assertEqual(worklist_item_one.OtherPatientIDsSequence[i].TypeOfPatientID, worklist_item_two.OtherPatientIDsSequence[i].TypeOfPatientID)
+
+        for i in range(len(worklist_item_one.ScheduledProcedureStepSequence)):
+            self.assertEqual(worklist_item_one.ScheduledProcedureStepSequence[i].ScheduledPerformingPhysicianName, worklist_item_two.ScheduledProcedureStepSequence[i].ScheduledPerformingPhysicianName)
+            self.assertEqual(worklist_item_one.ScheduledProcedureStepSequence[i].ScheduledProcedureStepStartDate, worklist_item_two.ScheduledProcedureStepSequence[i].ScheduledProcedureStepStartDate)
+            self.assertEqual(worklist_item_one.ScheduledProcedureStepSequence[i].ScheduledProcedureStepStartTime, worklist_item_two.ScheduledProcedureStepSequence[i].ScheduledProcedureStepStartTime)
+            self.assertEqual(worklist_item_one.ScheduledProcedureStepSequence[i].ScheduledProcedureStepDescription, worklist_item_two.ScheduledProcedureStepSequence[i].ScheduledProcedureStepDescription)
+            self.assertEqual(worklist_item_one.ScheduledProcedureStepSequence[i].CommentsOnTheScheduledProcedureStep, worklist_item_two.ScheduledProcedureStepSequence[i].CommentsOnTheScheduledProcedureStep)
+
+
+
+
 
 
 if __name__ == '__main__':
