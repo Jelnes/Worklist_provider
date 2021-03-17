@@ -13,7 +13,7 @@ __NONASCII = 'æÆøØåÅßäöüÄÖÜ' # Just an arbitrarily selected list of
 
 _CHINESE = '也池馳弛水马弓土人女' #An excempt of chinese characters
 
-_RUSSIAN = 'ДРЛИПѰЦЗГБЖ'   #An excemt of russian characters
+_RUSSIAN = 'ДРЛИПѰЦЗГБЖ'   #An excempt of russian characters
 
 def _random_unicode_string(length):
     """ Create a random string of specified length containing some non-ascii characters """
@@ -97,13 +97,13 @@ class RandomWorklist:
 
             worklist_item.OtherPatientIDsSequence = otherPatientIdsSq
 
-            step = Dataset()
-            step.ScheduledPerformingPhysicianName = self._get_person_name()
-            step.ScheduledProcedureStepStartDate = _random_dicom_date_after_1900()
-            step.ScheduledProcedureStepStartTime = _random_dicom_time()
-            step.ScheduledProcedureStepDescription = _extend_with_random_to_length('Scheduled procedure step desc ', 64)
-            step.CommentsOnTheScheduledProcedureStep = _extend_with_random_to_length('Scheduled step comments ', 10240)
-            worklist_item.ScheduledProcedureStepSequence = [step]
+        step = Dataset()
+        step.ScheduledPerformingPhysicianName = self._get_person_name()
+        step.ScheduledProcedureStepStartDate = _random_dicom_date_after_1900()
+        step.ScheduledProcedureStepStartTime = _random_dicom_time()
+        step.ScheduledProcedureStepDescription = _extend_with_random_to_length('Scheduled procedure step desc ', 64)
+        step.CommentsOnTheScheduledProcedureStep = _extend_with_random_to_length('Scheduled step comments ', 10240)
+        worklist_item.ScheduledProcedureStepSequence = [step]
 
         return worklist_item
 
