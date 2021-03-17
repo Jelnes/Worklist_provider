@@ -178,13 +178,12 @@ class WorklistServerTests(unittest.TestCase):
         with open('logfile.txt', 'r') as file:
             data1 = file.read()
 
-        worklist = client.get_worklist(query_dataset)
+        client.get_worklist(query_dataset)
 
         with open('logfile.txt', 'r') as file:
             data2 = file.read()
 
         self.assertTrue(data1 != data2)
-
 
 
 if __name__ == '__main__':
