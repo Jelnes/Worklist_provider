@@ -61,7 +61,10 @@ class WorklistServer:
         totalExams = random.randrange(user_config.minAmountOfWorklistExams, user_config.maxAmountOfWorklistExams)
 
         f = open("logfile.txt", "a+")
-        f.write('%s\tThe seed used is: %d\n' % (time.asctime(time.localtime()), seed))
+        f.write('%s\tSeed: %d\n' % (time.asctime(time.localtime()), seed))
+        f.write('rateOfRandomExams: %d\t rateOfCleanExams: %d\t minAmountOfWorklistExams: %d\t maxAmountOfWorklistExams: %d\n'
+        % (user_config.rateOfRandomExams, user_config.rateOfCleanExams, user_config.minAmountOfWorklistExams, user_config.maxAmountOfWorklistExams))
+
         f.close()
 
         for i in range (totalExams):
