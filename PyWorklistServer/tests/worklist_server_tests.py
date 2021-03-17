@@ -89,16 +89,6 @@ class WorklistServerTests(unittest.TestCase):
             self.assertTrue(len(otherPatientId.IssuerOfPatientID) > 0)
             self.assertEqual(otherPatientId.TypeOfPatientID, 'TEXT')
 
-    def test_RequireThat_CleanWorklistRequest_ReturnsArne(self):
-        client = worklist_client.WorklistClient(self._server_config.network_address)
-
-        query_dataset = Dataset()
-        query_dataset.PatientName = '*'
-        worklist = client.get_worklist(query_dataset)
-        worklist_item = worklist[4]
-
-        self.assertEqual((worklist_item.PatientID), 'Arne')
-
 
     def test_RequireThat_WorklistRequest_ReturnsWorklistSize_BetweenMinMax(self):
         client = worklist_client.WorklistClient(self._server_config.network_address)
