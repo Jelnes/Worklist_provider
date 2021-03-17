@@ -11,9 +11,21 @@ from pydicom.dataset import Dataset
 
 __NONASCII = 'æÆøØåÅßäöüÄÖÜ' # Just an arbitrarily selected list of non ascii characters
 
+_CHINESE = '也池馳弛水马弓土人女' #An excempt of chinese characters
+
+_RUSSIAN = 'ДРЛИПѰЦЗГБЖ'   #An excemt of russian characters
+
 def _random_unicode_string(length):
     """ Create a random string of specified length containing some non-ascii characters """
     return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __NONASCII, k=length))
+
+def _random_language_string(length):
+    """ Create a random string of specified length containing both supported and not supported characters"""
+    r = random.randrange(1, 100)
+    if (r < 50):    #CHINESE
+        return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + _CHINESE, k=length))
+    else:           #RUSSIAN
+        return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + _RUSSIAN, k=length))
 
 def _extend_with_random_to_length(text, length):
     """ Extend a string with random characters up to the given length """
