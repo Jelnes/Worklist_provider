@@ -6,7 +6,7 @@ import random
 class FaultProvider:
     """ Gives faulty input to exam-objects """
     def __init__(self):
-        self.isLong = 0
+        self.isLong = 1
         self.likelyhood_of_long_string = 80
 
 
