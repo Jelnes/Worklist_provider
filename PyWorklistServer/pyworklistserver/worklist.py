@@ -8,6 +8,7 @@ import random
 import string
 from pydicom.uid import generate_uid
 from pydicom.dataset import Dataset
+from pyworklistserver import fault_provider
 
 __NONASCII = 'æÆøØåÅßäöüÄÖÜ' # Just an arbitrarily selected list of non ascii characters
 
@@ -55,14 +56,7 @@ def _random_dicom_time():
     seconds = random.randrange(0, 59)
     return '{:02}{:02}{:02}'.format(hour, minutes, seconds)
 
-def _get_random_length(max_len):
-    """ Return an int with size, either equal to defaultmax, or greater."""
-    r = random.randrange(1, 100)
-    if (r < 10):
-        length = random.randrange(max_len+1, max_len+10)
-    else:
-        length = max_len
-    return length
+
 
 _VIVID_HACK_MAX_PERSON_NAME = 64
 
