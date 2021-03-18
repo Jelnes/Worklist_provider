@@ -6,7 +6,7 @@ import string
 from pydicom.uid import generate_uid
 from pydicom.dataset import Dataset
 from pyworklistserver import fault_provider
-from PyWorklistServer.pyworklistserver.fault_provider import FaultProvider
+from pyworklistserver.fault_provider import FaultProvider
 
 __NONASCII = 'æÆøØåÅßäöüÄÖÜ' # Just an arbitrarily selected list of non ascii characters
 
@@ -73,13 +73,13 @@ class RandomWorklist:
         worklist_item.AccessionNumber = _random_unicode_string(16)
         worklist_item.PatientBirthDate = _random_dicom_date_after_1900()
         worklist_item.PatientName = self._get_person_name()
-        worklist_item.PatientID = _extend_with_random_to_length('Patient id ', 64)
+        worklist_item.PatientID = _extend_with_random_to_length('Patient id ', FaultProvider()._get_random_length(64))
         worklist_item.IssuerOfPatientID = _extend_with_random_to_length('Issuer of patient id ', FaultProvider()._get_random_length(64))
         worklist_item.PatientWeight = str(random.uniform(10.0, 150.0))[:16]
         worklist_item.PatientSize = str(random.uniform(1.0, 2.5))[:16]
-        worklist_item.AdmissionID= _extend_with_random_to_length('Admission id ', 64)
-        worklist_item.RequestedProcedureID = _extend_with_random_to_length('Step id ', 16)
-        worklist_item.RequestedProcedureDescription = _extend_with_random_to_length('Step description ', 64)
+        worklist_item.AdmissionID= _extend_with_random_to_length('Admission id ', FaultProvider()._get_random_length(64))
+        worklist_item.RequestedProcedureID = _extend_with_random_to_length('Step id ', FaultProvider()._get_random_length(16))
+        worklist_item.RequestedProcedureDescription = _extend_with_random_to_length('Step description ', FaultProvider()._get_random_length(64))
 
         otherPatientIdsSq = [Dataset(), Dataset()]
         for otherPatientId in otherPatientIdsSq:
