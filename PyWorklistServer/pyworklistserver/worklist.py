@@ -1,14 +1,12 @@
 """ Worklist generator classes """
 
-
-""" Worklist generator classes """
-
 import datetime
 import random
 import string
 from pydicom.uid import generate_uid
 from pydicom.dataset import Dataset
 from pyworklistserver import fault_provider
+from PyWorklistServer.pyworklistserver.fault_provider import FaultProvider
 
 __NONASCII = 'æÆøØåÅßäöüÄÖÜ' # Just an arbitrarily selected list of non ascii characters
 
