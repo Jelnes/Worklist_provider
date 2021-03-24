@@ -10,6 +10,7 @@ class FaultProvider:
         self.isLong = 0
         self.likelyhood_of_long_string = 2
         self.likelyhood_of_delay = 0
+        self.delay_time = 5
 
 
     def _get_random_length(self, max_len):
@@ -28,5 +29,5 @@ class FaultProvider:
         """Possibility of delaying the runtime"""
         r = random.randrange(1, 100)
         if (r < self.likelyhood_of_delay):
-            time.sleep(5)
+            time.sleep(self.delay_time)
         return 0
