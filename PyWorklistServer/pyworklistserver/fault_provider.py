@@ -26,7 +26,7 @@ class FaultProvider:
             if (r <= long):
                 return random.randrange(max_len+1, max_len+10)
         if self.is_empty == 1:
-            if (r > long && r <= (long + self.likelyhood_of_empty_string)):
+            if (r > long and r <= (long + self.likelyhood_of_empty_string)):
                 return 0
         return max_len
 
