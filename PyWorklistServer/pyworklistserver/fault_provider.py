@@ -8,8 +8,8 @@ from pyworklistserver import user_config
 class FaultProvider:
     """ Gives faulty input to exam-objects """
     def __init__(self):
-        self.is_long = 0
-        self.is_delay = 0
+        self.is_long = 1
+        self.is_delay = 1
         self.likelyhood_of_long_string = user_config.likelyhood_of_long_string
         self.likelyhood_of_delay = user_config.likelyhood_of_delay
         self.delay_time = 5
