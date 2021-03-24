@@ -8,7 +8,8 @@ from pyworklistserver import user_config
 class FaultProvider:
     """ Gives faulty input to exam-objects """
     def __init__(self):
-        self.isLong = 0
+        self.is_long = 0
+        self.is_delay = 0
         self.likelyhood_of_long_string = user_config.likelyhood_of_long_string
         self.likelyhood_of_delay = user_config.likelyhood_of_delay
         self.delay_time = 5
@@ -16,7 +17,7 @@ class FaultProvider:
 
     def _get_random_length(self, max_len):
         """ Return an int with size, either equal to defaultmax, or greater."""
-        if self.isLong == 0:
+        if self.is_long == 0:
             return max_len
 
         r = random.randrange(1, 100)
@@ -28,6 +29,8 @@ class FaultProvider:
 
     def _delay(self):
         """Possibility of delaying the runtime"""
+        if self.is_delay == 0:
+            return 0
         r = random.randrange(1, 100)
         if (r < self.likelyhood_of_delay):
             time.sleep(self.delay_time)
