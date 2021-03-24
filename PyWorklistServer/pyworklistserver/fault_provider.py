@@ -14,7 +14,7 @@ class FaultProvider:
         self.likelyhood_of_delay = user_config.likelyhood_of_delay
         self.delay_time = 5
         self.likelyhood_of_empty_string
-        self.likelyhood_of_None_string
+        self.likelyhood_of_None_string = user_config.likelyhood_of_None_string
 
 
     def _get_random_length(self, max_len):

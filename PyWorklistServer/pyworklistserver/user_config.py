@@ -22,22 +22,5 @@ likelyhood_of_long_string = 2.0
 #likelyhood of a delay per exam. in percent
 likelyhood_of_delay = 2.0
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-        
-    
-
-
-
+#Likelyhood of returning None instead of string. In percentage
+likelyhood_of_None_string = 1.0
