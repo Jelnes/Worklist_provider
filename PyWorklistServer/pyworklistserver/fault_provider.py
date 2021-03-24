@@ -13,6 +13,8 @@ class FaultProvider:
         self.likelyhood_of_long_string = user_config.likelyhood_of_long_string
         self.likelyhood_of_delay = user_config.likelyhood_of_delay
         self.delay_time = 5
+        self.likelyhood_of_empty_string
+        self.likelyhood_of_None_string
 
 
     def _get_random_length(self, max_len):
@@ -27,6 +29,11 @@ class FaultProvider:
             length = max_len
         return length
 
+    def _return_None_string(self):
+        r = random.uniform(0.0, 100.0)
+        if (r <= self.likelyhood_of_None_string):
+            return 0
+        return 1
 
     def _delay(self):
         """Possibility of delaying the runtime"""
