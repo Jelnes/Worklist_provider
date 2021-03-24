@@ -30,6 +30,8 @@ def _extend_with_random_to_length(text, length):
     """ Extend a string with random characters up to the given length """
     if FaultProvider()._return_None_string() == 0:
         return None
+    if length == 0:
+        return ''
     return text + _random_unicode_string(length - len(text))
 
 def _random_person_name(max_len_per_name):
@@ -75,7 +77,7 @@ class RandomWorklist:
         worklist_item.AccessionNumber = _random_unicode_string(16)
         worklist_item.PatientBirthDate = _random_dicom_date_after_1900()
         worklist_item.PatientName = self._get_person_name()
-        worklist_item.PatientID = _extend_with_random_to_length('Patient id ', FaultProvider()._get_random_length(64))
+        worklist_item.PatientID = _extend_with_random_to_length('', FaultProvider()._get_random_length(64))
 
         FaultProvider()._delay() #Possibility of delay
 
