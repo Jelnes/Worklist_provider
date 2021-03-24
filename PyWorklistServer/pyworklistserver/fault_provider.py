@@ -8,9 +8,10 @@ from pyworklistserver import user_config
 class FaultProvider:
     """ Gives faulty input to exam-objects """
     def __init__(self):
-        self.is_long = 1
-        self.is_empty = 1
-        self.is_delay = 1
+        self.is_long = user_config.is_long
+        self.is_empty = user_config.is_empty
+        self.is_delay = user_config.is_delay
+        self.is_None = user_config.is_None
         self.likelyhood_of_long_string = user_config.likelyhood_of_long_string
         self.likelyhood_of_delay = user_config.likelyhood_of_delay
         self.delay_time = 5
@@ -31,9 +32,10 @@ class FaultProvider:
         return max_len
 
     def _return_None_string(self):
-        r = random.uniform(0.0, 100.0)
-        if (r <= self.likelyhood_of_None_string):
-            return 0
+        if (self.is_None == 1):
+            r = random.uniform(0.0, 100.0)
+            if (r <= self.likelyhood_of_None_string):
+                return 0
         return 1
 
     def _delay(self):

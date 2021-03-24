@@ -7,10 +7,10 @@ maxAmountOfWorklistExams = 70
 #Minimum number of total patient-objects delivered from generator.
 minAmountOfWorklistExams = 20
 
-#Rate of clean patient-objects (in percentage) delivered from generator.
+#Rate of clean patient-objects delivered from generator.
 rateOfCleanExams = 2
 
-#Rate of random patient-objects (in percentage) delivered from generator.
+#Rate of random patient-objects delivered from generator.
 rateOfRandomExams = 5
 
 #Generator seed value, if command line argument not set. Set to 0 for seed to be set to a random number.
@@ -27,3 +27,12 @@ likelyhood_of_None_string = 1.0
 
 #Likelyhood of returning empty string, per line in exam, percentage
 likelyhood_of_empty_string = 1.0
+
+#Enablers / Disablers of the fault_provider:
+is_long = 1
+
+is_empty = 1
+
+is_None = 1
+
+is_delay = 1
