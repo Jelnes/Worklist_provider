@@ -2,14 +2,15 @@
 
 import random
 import time
+from pyworklistserver import user_config
 
 
 class FaultProvider:
     """ Gives faulty input to exam-objects """
     def __init__(self):
         self.isLong = 0
-        self.likelyhood_of_long_string = 2
-        self.likelyhood_of_delay = 0
+        self.likelyhood_of_long_string = user_config.likelyhood_of_long_string
+        self.likelyhood_of_delay = user_config.likelyhood_of_delay
         self.delay_time = 5
 
 
