@@ -28,7 +28,7 @@ def _random_language_string(length):
 
 def _extend_with_random_to_length(text, length):
     """ Extend a string with random characters up to the given length """
-    if FaultProvider._return_None_string() == 0:
+    if FaultProvider()._return_None_string() == 0:
         return None
     return text + _random_unicode_string(length - len(text))
 
