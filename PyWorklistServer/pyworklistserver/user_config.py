@@ -17,10 +17,10 @@ rateOfRandomExams = 5
 seed_Number = 0
 
 #how often long string will appear in percent. in an exam, per line
-likelyhood_of_long_string = 2
+likelyhood_of_long_string = 2.0
 
 #likelyhood of a delay per exam. in percent
-likelyhood_of_delay = 2
+likelyhood_of_delay = 2.0
 
 
 
