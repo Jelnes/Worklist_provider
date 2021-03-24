@@ -24,3 +24,6 @@ likelyhood_of_delay = 2.0
 
 #Likelyhood of returning None instead of string. In percentage
 likelyhood_of_None_string = 1.0
+
+#Likelyhood of returning empty string, per line in exam, percentage
+likelyhood_of_empty_string = 1.0

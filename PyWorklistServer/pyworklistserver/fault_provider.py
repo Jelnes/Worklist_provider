@@ -13,7 +13,7 @@ class FaultProvider:
         self.likelyhood_of_long_string = user_config.likelyhood_of_long_string
         self.likelyhood_of_delay = user_config.likelyhood_of_delay
         self.delay_time = 5
-        self.likelyhood_of_empty_string
+        self.likelyhood_of_empty_string = user_config.likelyhood_of_empty_string
         self.likelyhood_of_None_string = user_config.likelyhood_of_None_string
 
 
@@ -25,6 +25,9 @@ class FaultProvider:
         r = random.uniform(0.0, 100.0)
         if (r <= self.likelyhood_of_long_string):
             length = random.randrange(max_len+1, max_len+10)
+
+        elif (r <= (self.likelyhood_of_long_string + self.likelyhood_of_empty_string):
+            length = 0
         else:
             length = max_len
         return length
