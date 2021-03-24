@@ -31,7 +31,7 @@ class FaultProvider:
         """Possibility of delaying the runtime"""
         if self.is_delay == 0:
             return 0
-        r = random.randrange(1, 100)
+        r = random.randrange(1, 100, 0.1)
         if (r <= self.likelyhood_of_delay):
             time.sleep(self.delay_time)
         return 0

@@ -20,24 +20,4 @@ seed_Number = 0
 likelyhood_of_long_string = 2
 
 #likelyhood of a delay per exam. in percent
-likelyhood_of_delay = 2
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-        
-    
-
-
-
+likelyhood_of_delay = 0.2
