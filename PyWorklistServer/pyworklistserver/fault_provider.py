@@ -21,7 +21,7 @@ class FaultProvider:
             return max_len
 
         r = random.randrange(1, 100)
-        if (r < self.likelyhood_of_long_string):
+        if (r <= self.likelyhood_of_long_string):
             length = random.randrange(max_len+1, max_len+10)
         else:
             length = max_len
@@ -32,6 +32,6 @@ class FaultProvider:
         if self.is_delay == 0:
             return 0
         r = random.randrange(1, 100)
-        if (r < self.likelyhood_of_delay):
+        if (r <= self.likelyhood_of_delay):
             time.sleep(self.delay_time)
         return 0
