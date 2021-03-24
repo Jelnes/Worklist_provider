@@ -1,6 +1,7 @@
 """ Class for generation of faulty input """
 
 import random
+import time
 
 
 class FaultProvider:
@@ -8,6 +9,7 @@ class FaultProvider:
     def __init__(self):
         self.isLong = 0
         self.likelyhood_of_long_string = 2
+        self.likelyhood_of_delay = 0
 
 
     def _get_random_length(self, max_len):
@@ -21,3 +23,10 @@ class FaultProvider:
         else:
             length = max_len
         return length
+
+    def _delay(self):
+        """Possibility of delaying the runtime"""
+        r = random.randrange(1, 200)
+        if (r < self.likelyhood_of_delay):
+            time.sleep(5)
+        return 0
