@@ -9,6 +9,7 @@ class FaultProvider:
     """ Gives faulty input to exam-objects """
     def __init__(self):
         self.is_long = 1
+        self.is_empty = 1
         self.is_delay = 1
         self.likelyhood_of_long_string = user_config.likelyhood_of_long_string
         self.likelyhood_of_delay = user_config.likelyhood_of_delay
@@ -19,18 +20,15 @@ class FaultProvider:
 
     def _get_random_length(self, max_len):
         """ Return an int with size, either equal to defaultmax, or greater."""
-        if self.is_long == 0:
-            return max_len
-
         r = random.uniform(0.0, 100.0)
-        if (r <= self.likelyhood_of_long_string):
-            length = random.randrange(max_len+1, max_len+10)
-
-        elif (r <= (self.likelyhood_of_long_string + self.likelyhood_of_empty_string)):
-            length = 0
-        else:
-            length = max_len
-        return length
+        long = self.likelyhood_of_long_string
+        if self.is_long == 1:
+            if (r <= long):
+                return random.randrange(max_len+1, max_len+10)
+        if self.is_empty == 1:
+            if (r > long && r <= (long + self.likelyhood_of_empty_string)):
+                return 0
+        return max_len
 
     def _return_None_string(self):
         r = random.uniform(0.0, 100.0)
