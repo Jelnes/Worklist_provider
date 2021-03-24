@@ -27,6 +27,7 @@ class FaultProvider:
             length = max_len
         return length
 
+
     def _delay(self):
         """Possibility of delaying the runtime"""
         if self.is_delay == 0:
