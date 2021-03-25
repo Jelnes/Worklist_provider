@@ -85,7 +85,7 @@ class RandomWorklist:
         worklist_item.IssuerOfPatientID = _extend_with_random_to_length('', FaultProvider()._get_random_length(64))
         worklist_item.PatientWeight = str(random.uniform(10.0, 150.0))[:16]
         worklist_item.PatientSize = str(random.uniform(1.0, 2.5))[:16]
-        worklist_item.AdmissionID= _extend_with_random_to_length('', FaultProvider()._get_random_length(64))
+        worklist_item.AdmissionID = _extend_with_random_to_length('', FaultProvider()._get_random_length(64))
         worklist_item.RequestedProcedureID = _extend_with_random_to_length('', FaultProvider()._get_random_length(16))
         worklist_item.RequestedProcedureDescription = _extend_with_random_to_length('', FaultProvider()._get_random_length(64))
         worklist_item.ReferringPhysicianName = self._get_person_name()
