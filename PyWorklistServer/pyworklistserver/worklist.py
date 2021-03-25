@@ -82,8 +82,8 @@ class RandomWorklist:
         FaultProvider()._delay() #Possibility of delay
 
         worklist_item.IssuerOfPatientID = _extend_with_random_to_length('Issuer of patient id ', FaultProvider()._get_random_length(64))
-        worklist_item.PatientWeight = random.uniform(10.0, 150.0)
-        worklist_item.PatientSize = random.uniform(1.0, 2.5)
+        worklist_item.PatientWeight = str(random.uniform(10.0, 150.0))[:16]
+        worklist_item.PatientSize = str(random.uniform(1.0, 2.5))[:16]
         worklist_item.AdmissionID= _extend_with_random_to_length('Admission id ', FaultProvider()._get_random_length(64))
         worklist_item.RequestedProcedureID = _extend_with_random_to_length('Step id ', FaultProvider()._get_random_length(16))
         worklist_item.RequestedProcedureDescription = _extend_with_random_to_length('Step description ', FaultProvider()._get_random_length(64))
