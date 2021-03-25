@@ -16,7 +16,7 @@ rateOfRandomExams = 5
 #Generator seed value, if command line argument not set. Set to 0 for seed to be set to a random number.
 seed_Number = 0
 
-#how often long string will appear in percent. in an exam, per line
+#Likelyhood of returning long string, per line in exam, percentage
 likelyhood_of_long_string = 2.0
 
 #Likelyhood of returning empty string, per line in exam, percentage
@@ -29,10 +29,10 @@ likelyhood_of_None_string = 1.0
 likelyhood_of_delay = 2.0
 
 #Enablers / Disablers of the fault_provider:
-is_long = 1
+long_enabled = 1
 
-is_empty = 1
+empty_enabled = 1
 
-is_None = 1
+None_enabled = 1
 
-is_delay = 1
+delay_enabled = 1

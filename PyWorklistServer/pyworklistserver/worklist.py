@@ -28,7 +28,7 @@ def _random_language_string(length):
 
 def _extend_with_random_to_length(text, length):
     """ Extend a string with random characters up to the given length """
-    if FaultProvider()._return_None_string() == 0:
+    if FaultProvider()._return_None_string() == 1:
         return None
     if length == 0:
         return ''
@@ -80,7 +80,7 @@ class RandomWorklist:
         worklist_item.PatientName = self._get_person_name()
         worklist_item.PatientID = _extend_with_random_to_length('', FaultProvider()._get_random_length(64))
 
-        FaultProvider()._delay() #Possibility of delay
+        FaultProvider()._delay() #Possible delay
 
         worklist_item.IssuerOfPatientID = _extend_with_random_to_length('', FaultProvider()._get_random_length(64))
         worklist_item.PatientWeight = str(random.uniform(10.0, 150.0))[:16]
