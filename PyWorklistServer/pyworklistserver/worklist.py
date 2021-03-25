@@ -81,17 +81,17 @@ class RandomWorklist:
 
         FaultProvider()._delay() #Possibility of delay
 
-        worklist_item.IssuerOfPatientID = _extend_with_random_to_length('Issuer of patient id ', FaultProvider()._get_random_length(64))
+        worklist_item.IssuerOfPatientID = _extend_with_random_to_length('', FaultProvider()._get_random_length(64))
         worklist_item.PatientWeight = str(random.uniform(10.0, 150.0))[:16]
         worklist_item.PatientSize = str(random.uniform(1.0, 2.5))[:16]
-        worklist_item.AdmissionID= _extend_with_random_to_length('Admission id ', FaultProvider()._get_random_length(64))
-        worklist_item.RequestedProcedureID = _extend_with_random_to_length('Step id ', FaultProvider()._get_random_length(16))
-        worklist_item.RequestedProcedureDescription = _extend_with_random_to_length('Step description ', FaultProvider()._get_random_length(64))
+        worklist_item.AdmissionID= _extend_with_random_to_length('', FaultProvider()._get_random_length(64))
+        worklist_item.RequestedProcedureID = _extend_with_random_to_length('', FaultProvider()._get_random_length(16))
+        worklist_item.RequestedProcedureDescription = _extend_with_random_to_length('', FaultProvider()._get_random_length(64))
 
         otherPatientIdsSq = [Dataset(), Dataset()]
         for otherPatientId in otherPatientIdsSq:
-            otherPatientId.PatientID = _extend_with_random_to_length('Other patient id ', FaultProvider()._get_random_length(64))
-            otherPatientId.IssuerOfPatientID = _extend_with_random_to_length('Issuer of patient id ', FaultProvider()._get_random_length(64))
+            otherPatientId.PatientID = _extend_with_random_to_length('', FaultProvider()._get_random_length(64))
+            otherPatientId.IssuerOfPatientID = _extend_with_random_to_length('', FaultProvider()._get_random_length(64))
             otherPatientId.TypeOfPatientID = 'TEXT'
 
         worklist_item.OtherPatientIDsSequence = otherPatientIdsSq
@@ -100,8 +100,8 @@ class RandomWorklist:
         step.ScheduledPerformingPhysicianName = self._get_person_name()
         step.ScheduledProcedureStepStartDate = _random_dicom_date_after_1900()
         step.ScheduledProcedureStepStartTime = _random_dicom_time()
-        step.ScheduledProcedureStepDescription = _extend_with_random_to_length('Scheduled procedure step desc ', FaultProvider()._get_random_length(64))
-        step.CommentsOnTheScheduledProcedureStep = _extend_with_random_to_length('Scheduled step comments ', FaultProvider()._get_random_length(10240))
+        step.ScheduledProcedureStepDescription = _extend_with_random_to_length('', FaultProvider()._get_random_length(64))
+        step.CommentsOnTheScheduledProcedureStep = _extend_with_random_to_length('', FaultProvider()._get_random_length(10240))
         worklist_item.ScheduledProcedureStepSequence = [step]
 
         return worklist_item
