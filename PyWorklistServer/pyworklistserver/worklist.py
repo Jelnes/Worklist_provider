@@ -118,7 +118,7 @@ class RandomWorklist:
         worklist_item.AccessionNumber = '123'
         worklist_item.PatientBirthDate = '19901015'
         worklist_item.PatientName = 'Clean Exam'
-        worklist_item.PatientID = ('MinimalExam123')
+        worklist_item.PatientID = _extend_with_random_to_length('', 64)
         worklist_item.IssuerOfPatientID = 'Issuer of patient id: Bob'
         worklist_item.PatientWeight = str(100.0)
         worklist_item.PatientSize = str(2.1)
