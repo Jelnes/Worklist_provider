@@ -88,6 +88,7 @@ class RandomWorklist:
         worklist_item.AdmissionID= _extend_with_random_to_length('', FaultProvider()._get_random_length(64))
         worklist_item.RequestedProcedureID = _extend_with_random_to_length('', FaultProvider()._get_random_length(16))
         worklist_item.RequestedProcedureDescription = _extend_with_random_to_length('', FaultProvider()._get_random_length(64))
+        worklist_item.ReferringPhysicianName = self._get_person_name()
 
         otherPatientIdsSq = [Dataset(), Dataset()]
         for otherPatientId in otherPatientIdsSq:
