@@ -113,31 +113,31 @@ class RandomWorklist:
         worklist_item.StudyInstanceUID = generate_uid(prefix='1.2.840.113619.2.391.6789.', entropy_srcs=[_random_unicode_string(10), _random_unicode_string(10)])
         worklist_item.Modality = 'US'
         worklist_item.SpecificCharacterSet = self._specific_charset
-        worklist_item.AccessionNumber = _random_unicode_string(16)
-        worklist_item.PatientBirthDate = _random_dicom_date_after_1900()
-        worklist_item.PatientName = self._get_person_name()
-        worklist_item.PatientID = ('Arne ')
-        worklist_item.IssuerOfPatientID = _extend_with_random_to_length('Issuer of patient id ', 64)
-        worklist_item.PatientWeight = str(random.uniform(10.0, 150.0))[:16]
-        worklist_item.PatientSize = str(random.uniform(1.0, 2.5))[:16]
-        worklist_item.AdmissionID= _extend_with_random_to_length('Admission id ', 64)
-        worklist_item.RequestedProcedureID = _extend_with_random_to_length('Step id ', 16)
-        worklist_item.RequestedProcedureDescription = _extend_with_random_to_length('Step description ', 64)
+        worklist_item.AccessionNumber = '123'
+        worklist_item.PatientBirthDate = '19901015'
+        worklist_item.PatientName = 'Arne'
+        worklist_item.PatientID = ('Arne123')
+        worklist_item.IssuerOfPatientID = 'Issuer of patient id: Bob'
+        worklist_item.PatientWeight = str(100.0)
+        worklist_item.PatientSize = str(2.1)
+        worklist_item.AdmissionID= 'Admission id 3'
+        worklist_item.RequestedProcedureID = 'Step id 2'
+        worklist_item.RequestedProcedureDescription = 'Step description Nice Exam'
 
         otherPatientIdsSq = [Dataset(), Dataset()]
         for otherPatientId in otherPatientIdsSq:
-            otherPatientId.PatientID = _extend_with_random_to_length('Other patient id ', 64)
-            otherPatientId.IssuerOfPatientID = _extend_with_random_to_length('Issuer of patient id ', 64)
+            otherPatientId.PatientID = 'Bob123'
+            otherPatientId.IssuerOfPatientID = 'Issuer of patient id: Arne'
             otherPatientId.TypeOfPatientID = 'TEXT'
 
         worklist_item.OtherPatientIDsSequence = otherPatientIdsSq
 
         step = Dataset()
-        step.ScheduledPerformingPhysicianName = self._get_person_name()
-        step.ScheduledProcedureStepStartDate = _random_dicom_date_after_1900()
-        step.ScheduledProcedureStepStartTime = _random_dicom_time()
-        step.ScheduledProcedureStepDescription = _extend_with_random_to_length('Scheduled procedure step desc ', 64)
-        step.CommentsOnTheScheduledProcedureStep = _extend_with_random_to_length('Scheduled step comments ', 10240)
+        step.ScheduledPerformingPhysicianName = 'Rolf Arnesen'
+        step.ScheduledProcedureStepStartDate = '20201224'
+        step.ScheduledProcedureStepStartTime = '121212'
+        step.ScheduledProcedureStepDescription = 'Scheduled procedure step description '
+        step.CommentsOnTheScheduledProcedureStep = 'Scheduled step comments '
         worklist_item.ScheduledProcedureStepSequence = [step]
 
         return worklist_item
