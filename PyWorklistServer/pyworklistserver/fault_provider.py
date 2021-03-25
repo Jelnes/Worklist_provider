@@ -13,11 +13,10 @@ class FaultProvider:
         self.delay_enabled = user_config.delay_enabled
         self.None_enabled = user_config.None_enabled
         self.likelyhood_of_long_string = user_config.likelyhood_of_long_string
-        self.likelyhood_of_delay = user_config.likelyhood_of_delay
-        self.delay_time = 5
         self.likelyhood_of_empty_string = user_config.likelyhood_of_empty_string
         self.likelyhood_of_None_string = user_config.likelyhood_of_None_string
-
+        self.likelyhood_of_delay = user_config.likelyhood_of_delay
+        self.delay_time = 5
 
     def _get_random_length(self, max_len):
         """ Return an int with size, either equal to defaultmax, or greater."""
