@@ -34,8 +34,8 @@ class WorklistServer:
         if os.path.exists("logfile.txt"):
             os.remove("logfile.txt")
         f = open("logfile.txt", "w+")
-        f.write('User_config:\trateOfRandomExams: %d\t rateOfCleanExams: %d\t minAmountOfWorklistExams: %d\t maxAmountOfWorklistExams: %d\n\n'
-        % (user_config.rateOfRandomExams, user_config.rateOfCleanExams, user_config.minAmountOfWorklistExams, user_config.maxAmountOfWorklistExams))
+        f.write('User_config:\trateOfRandomExams: %d\t rateOfCleanExams: %d\t minAmountOfWorklistExams: %d\t maxAmountOfWorklistExams: %d\t seed_Number (set): %d\n likelyhood_of_long_string: %d\t likelyhood_of_empty_string: %d\t likelyhood_of_None_string: %d\t likelyhood_of_delay: %d\t is_long: %d\t is_empty: %d\t is_None: %d\t is_delay: %d \n\n'
+        % (user_config.rateOfRandomExams, user_config.rateOfCleanExams, user_config.minAmountOfWorklistExams, user_config.maxAmountOfWorklistExams, user_config.seed_Number, user_config.likelyhood_of_long_string, user_config.likelyhood_of_empty_string, user_config.likelyhood_of_None_string, user_config.likelyhood_of_delay, user_config.is_long, user_config.is_empty, user_config.is_None, user_config.is_delay))
 
         f.close()
 

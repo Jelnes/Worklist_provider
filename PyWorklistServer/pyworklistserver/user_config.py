@@ -19,14 +19,14 @@ seed_Number = 0
 #how often long string will appear in percent. in an exam, per line
 likelyhood_of_long_string = 2.0
 
-#likelyhood of a delay per exam. in percent
-likelyhood_of_delay = 2.0
+#Likelyhood of returning empty string, per line in exam, percentage
+likelyhood_of_empty_string = 1.0
 
 #Likelyhood of returning None instead of string. In percentage
 likelyhood_of_None_string = 1.0
 
-#Likelyhood of returning empty string, per line in exam, percentage
-likelyhood_of_empty_string = 1.0
+#likelyhood of a delay per exam. in percent
+likelyhood_of_delay = 2.0
 
 #Enablers / Disablers of the fault_provider:
 is_long = 1
