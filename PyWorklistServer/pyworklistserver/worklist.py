@@ -116,14 +116,14 @@ class RandomWorklist:
         worklist_item.SpecificCharacterSet = self._specific_charset
         worklist_item.AccessionNumber = '123'
         worklist_item.PatientBirthDate = '19901015'
-        worklist_item.PatientName = 'Arne'
-        worklist_item.PatientID = ('Arne123')
+        worklist_item.PatientName = 'Clean Exam'
+        worklist_item.PatientID = ('MinimalExam123')
         worklist_item.IssuerOfPatientID = 'Issuer of patient id: Bob'
         worklist_item.PatientWeight = str(100.0)
         worklist_item.PatientSize = str(2.1)
-        worklist_item.AdmissionID= 'Admission id 3'
+        worklist_item.AdmissionID = 'Admission id 3'
         worklist_item.RequestedProcedureID = 'Step id 2'
-        worklist_item.RequestedProcedureDescription = 'Step description Nice Exam'
+        worklist_item.RequestedProcedureDescription = 'Step description Clean Exam'
 
         otherPatientIdsSq = [Dataset(), Dataset()]
         for otherPatientId in otherPatientIdsSq:
@@ -134,7 +134,7 @@ class RandomWorklist:
         worklist_item.OtherPatientIDsSequence = otherPatientIdsSq
 
         step = Dataset()
-        step.ScheduledPerformingPhysicianName = 'Rolf Arnesen'
+        step.ScheduledPerformingPhysicianName = 'Ola Nordmann'
         step.ScheduledProcedureStepStartDate = '20201224'
         step.ScheduledProcedureStepStartTime = '121212'
         step.ScheduledProcedureStepDescription = 'Scheduled procedure step description '
