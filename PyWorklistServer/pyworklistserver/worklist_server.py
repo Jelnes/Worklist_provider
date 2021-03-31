@@ -8,6 +8,7 @@ from pynetdicom.sop_class import ModalityWorklistInformationFind
 
 from pyworklistserver import worklist
 from pyworklistserver import user_config
+from pyworklistserver import get_config
 
 class WorklistServer:
     """ Simple worklist server with support for one client. This
@@ -23,12 +24,13 @@ class WorklistServer:
             (evt.EVT_C_FIND, self._on_find, [app_logger]),
         ]
         self._server = None
+        self._config_values = get_config.GetConfig()
 
     def get_seedNumber(self):
         """Return Function for seed-value"""
-        if user_config.seed_Number == 0:
+        if self._config_values.seed_Number == 0:
             return random.randrange(1, 1000000)
-        return user_config.seed_Number
+        return self._config_values.seed_Number
 
     def setup_log_seed(self):
         if os.path.exists("logfile.txt"):
@@ -72,12 +74,12 @@ class WorklistServer:
         random.seed(seed)
         self.log_seed(seed)
 
-        totalRate = user_config.rateOfRandomExams + user_config.rateOfCleanExams
-        totalExams = random.randrange(user_config.minAmountOfWorklistExams, user_config.maxAmountOfWorklistExams)
+        totalRate = self._config_values.rateOfRandomExams + self._config_values.rateOfCleanExams
+        totalExams = random.randrange(self._config_values.minAmountOfWorklistExams, self._config_values.maxAmountOfWorklistExams)
 
         for i in range (totalExams):
             r = random.randrange(1, totalRate)
-            if r <= user_config.rateOfCleanExams:
+            if r <= self._config_values.rateOfCleanExams:
                 worklist = self._worklist_factory.get_clean_worklist()
             else:
                 worklist = self._worklist_factory.get_random_worklist()
