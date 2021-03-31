@@ -1,16 +1,12 @@
 from context import pyworklistserver
 
 from pyworklistserver import get_config
+from pyworklistserver import fault_provider
 
 if __name__ == '__main__':
     test = get_config.GetConfig()
+    test.delay_enabled = 1
+    test.likelyhood_of_delay = 100
+    faultTest = fault_provider.FaultProvider(test)
 
-    print(test.maxAmountOfWorklistExams)
-
-    test.maxAmountOfWorklistExams = 10
-
-    print(test.maxAmountOfWorklistExams)
-
-    test.reset()
-    
-    print(test.maxAmountOfWorklistExams)
+    print(faultTest._delay())

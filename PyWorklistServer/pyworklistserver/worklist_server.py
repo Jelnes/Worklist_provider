@@ -17,14 +17,14 @@ class WorklistServer:
 
     def __init__(self, serverConfig, app_logger, blocking):
         self._config = serverConfig
+        self._config_values = get_config.GetConfig()
         self._logger = app_logger
         self._blocking = blocking
-        self._worklist_factory = worklist.RandomWorklist('ISO_IR 100')
+        self._worklist_factory = worklist.RandomWorklist('ISO_IR 100', self._config_values)
         self._handlers = [
             (evt.EVT_C_FIND, self._on_find, [app_logger]),
         ]
         self._server = None
-        self._config_values = get_config.GetConfig()
 
     def get_seedNumber(self):
         """Return Function for seed-value"""
@@ -37,7 +37,7 @@ class WorklistServer:
             os.remove("logfile.txt")
         f = open("logfile.txt", "w+")
         f.write('User_config:\trateOfRandomExams: %d\t rateOfCleanExams: %d\t minAmountOfWorklistExams: %d\t maxAmountOfWorklistExams: %d\t seed_Number (set): %d\n likelyhood_of_long_string: %d\t likelyhood_of_empty_string: %d\t likelyhood_of_None_string: %d\t likelyhood_of_delay: %d\t is_long: %d\t is_empty: %d\t is_None: %d\t is_delay: %d \n\n'
-        % (user_config.rateOfRandomExams, user_config.rateOfCleanExams, user_config.minAmountOfWorklistExams, user_config.maxAmountOfWorklistExams, user_config.seed_Number, user_config.likelyhood_of_long_string, user_config.likelyhood_of_empty_string, user_config.likelyhood_of_None_string, user_config.likelyhood_of_delay, user_config.long_enabled, user_config.empty_enabled, user_config.None_enabled, user_config.delay_enabled))
+        % (user_config.rateOfRandomExams, user_config.rateOfCleanExams, user_config.minAmountOfWorklistExams, user_config.maxAmountOfWorklistExams, user_config.seed_Number, user_config.likelyhood_of_long_string, user_config.likelyhood_of_empty_string, user_config.likelyhood_of_None_string, user_config.likelyhood_of_delay, user_config.long_enabled, user_config.empty_enabled, user_config.none_enabled, user_config.delay_enabled))
 
         f.close()
 

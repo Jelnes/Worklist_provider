@@ -33,6 +33,6 @@ long_enabled = 1
 
 empty_enabled = 1
 
-None_enabled = 1
+none_enabled = 1
 
 delay_enabled = 1

@@ -14,6 +14,11 @@ class GetConfig:
         self.likelyhood_of_None_string = user_config.likelyhood_of_None_string
         self.likelyhood_of_delay = user_config.likelyhood_of_delay
 
+        self.long_enabled = user_config.long_enabled
+        self.empty_enabled = user_config.empty_enabled
+        self.none_enabled = user_config.none_enabled
+        self.delay_enabled = user_config.delay_enabled
+
     def reset(self):
         self.maxAmountOfWorklistExams = user_config.maxAmountOfWorklistExams
         self.minAmountOfWorklistExams = user_config.minAmountOfWorklistExams
@@ -24,3 +29,8 @@ class GetConfig:
         self.likelyhood_of_empty_string = user_config.likelyhood_of_empty_string
         self.likelyhood_of_None_string = user_config.likelyhood_of_None_string
         self.likelyhood_of_delay = user_config.likelyhood_of_delay
+
+        self.long_enabled = user_config.long_enabled
+        self.empty_enabled = user_config.empty_enabled
+        self.none_enabled = user_config.none_enabled
+        self.delay_enabled = user_config.delay_enabled
