@@ -16,6 +16,8 @@ __RUSSIAN = 'ДРЛИПѰЦЗГБЖ'   #An excempt of russian characters
 
 __GREEK = 'ΑαΒβΓγΔδΕεΖζΗηΘθΙιψΩω' #An excempt of Greek characters
 
+__JAPANESE = '日一大二目五後.女かたまやたば' #An excempt of Japanese characters (Kanji, Hiragana and Katakana)
+
 def _random_unicode_string(length):
     """ Create a random string of specified length containing some non-ascii characters """
     return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __NONASCII, k=length))
