@@ -10,9 +10,9 @@ from pyworklistserver import fault_provider
 
 __NONASCII = 'æÆøØåÅßäöüÄÖÜ' # Just an arbitrarily selected list of non ascii characters
 
-_CHINESE = '也池馳弛水马弓土人女' #An excempt of chinese characters
+__CHINESE = '也池馳弛水马弓土人女' #An excempt of chinese characters
 
-_RUSSIAN = 'ДРЛИПѰЦЗГБЖ'   #An excempt of russian characters
+__RUSSIAN = 'ДРЛИПѰЦЗГБЖ'   #An excempt of russian characters
 
 def _random_unicode_string(length):
     """ Create a random string of specified length containing some non-ascii characters """
