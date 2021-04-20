@@ -8,11 +8,13 @@ from pydicom.dataset import Dataset
 from pyworklistserver import fault_provider
 
 
-__NONASCII = 'æÆøØåÅßäöüÄÖÜ' # Just an arbitrarily selected list of non ascii characters
+__NONASCII = 'æÆøØåÅßäöüÄÖÜ' #just an arbitrarily selected list of non ascii characters
 
 __CHINESE = '也池馳弛水马弓土人女' #An excempt of chinese characters
 
 __RUSSIAN = 'ДРЛИПѰЦЗГБЖ'   #An excempt of russian characters
+
+__GREEK = 'ΑαΒβΓγΔδΕεΖζΗηΘθΙιψΩω' #An excempt of Greek characters
 
 def _random_unicode_string(length):
     """ Create a random string of specified length containing some non-ascii characters """
