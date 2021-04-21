@@ -22,7 +22,7 @@ __KOREAN = 'ㄱㄴㄷㄹㅇㅈㅑㅓㅕㅗㅛㅔㅖㅚㅿㆆㆍ' #An excempt of 
 
 def _random_unicode_string(length):
     r = random.uniform(0.0, 100.0)
-    if r in range(0, 5):
+    if r in range(0, likelyhood_of_language):
         r = random.uniform(0.0, 100.0)
         if r in range(0, 20) and (chinese_enabled == 1):  # CHINESE
             return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __CHINESE, k=length))
@@ -30,7 +30,7 @@ def _random_unicode_string(length):
             return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __RUSSIAN, k=length))
         elif r in range(40, 60) and (greek_enabled == 1): # GREEK
             return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __GREEK, k=length))
-        elif r in range(60, 80) and (japanese_enabled == 1): # JAPANESE
+        elif r in range(60, 80) and (japanese_enabled = 1): # JAPANESE
             return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __JAPANESE, k=length))
         elif r in range(80, 100) and (korean_enabled) == 1: # KOREAN
             return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __KOREAN, k=length))
