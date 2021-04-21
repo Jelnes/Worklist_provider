@@ -24,13 +24,6 @@ def _random_unicode_string(length):
     """ Create a random string of specified length containing some non-ascii characters """
     return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __NONASCII, k=length))
 
-def _random_language_string(length):
-    """ Create a random string of specified length containing both supported and not supported characters"""
-    r = random.randrange(1, 100)
-    if (r < 50):    #CHINESE
-        return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + _CHINESE, k=length))
-    else:           #RUSSIAN
-        return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + _RUSSIAN, k=length))
 
 def _extend_with_random_to_length(text, length, _None_string_func):
     """ Extend a string with random characters up to the given length """
