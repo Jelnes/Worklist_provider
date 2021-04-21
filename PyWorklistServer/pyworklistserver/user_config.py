@@ -29,7 +29,7 @@ likelyhood_of_None_string = 1.0
 likelyhood_of_delay = 2.0
 
 #Likelyhood of using one of the unsupported languages, per line in exam, in percentage
-likelyhood_of_language = 5.0
+likelyhood_of_language = 0
 
 #Enablers / Disablers of the fault_provider:
 long_enabled = 1
