@@ -115,30 +115,22 @@ class WorklistServerTests(unittest.TestCase):
 
         self.assertEqual(len(worklist_one), len(worklist_two))
 
-    def test_RequireThat_WorklistRequest_ReturnsCleanExam_onRandomIntervallSetBySeer(self):
-        init_seed = random.randrange(1000)
-        random.seed(init_seed)
-        seed = self._server.get_seedNumber()
-        random.seed(seed)
-
-        totalExams = random.randrange(user_config.minAmountOfWorklistExams, user_config.maxAmountOfWorklistExams)
-
-        totalRate = user_config.rateOfRandomExams + user_config.rateOfCleanExams
-
-        r = random.randrange(1, totalRate)
+    def test_RequireThat_WorklistRequest_ReturnsCleanWorklist_WhenSet(self):
+        self._server._config_values.reset()
+        self._server._config_values.rateOfCleanExams = 2
+        self._server._config_values.rateOfRandomExams = 0
 
         client = worklist_client.WorklistClient(self._server_config.network_address)
+
         query_dataset = Dataset()
         query_dataset.PatientName = '*'
 
-        random.seed(init_seed)
+
         worklist = client.get_worklist(query_dataset)
         worklist_item = worklist[0]
 
-        if r <= user_config.rateOfCleanExams:
-            self.assertEqual((worklist_item.PatientID), 'Arne')
-        else:
-            self.assertNotEqual((worklist_item.PatientID), 'Arne')
+        self.assertEqual((worklist_item.PatientName), 'Clean Exam')
+
 
 
     def test_RequireThat_MultipleWorklistRequests_ReturnsIdenticalWorklists_ByUseOfSeed(self):
