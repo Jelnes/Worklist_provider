@@ -87,11 +87,11 @@ class RandomWorklist:
         """ Generate a random worklist """
 
         worklist_item = Dataset()
-        worklist_item.StudyInstanceUID = generate_uid(prefix='1.2.840.113619.2.391.6789.', entropy_srcs=[_random_unicode_string(10.0), _random_unicode_string(10.0)])
+        worklist_item.StudyInstanceUID = generate_uid(prefix='1.2.840.113619.2.391.6789.', entropy_srcs=[_random_unicode_string(10), _random_unicode_string(10)])
         worklist_item.Modality = 'US'
         worklist_item.SpecificCharacterSet = self._specific_charset
         worklist_item.CurrentPatientLocation = _extend_with_random_to_length('', self._fault_provider._get_random_length(64), self._fault_provider._return_None_string)
-        worklist_item.AccessionNumber = _random_unicode_string(16.0)
+        worklist_item.AccessionNumber = _random_unicode_string(16)
         worklist_item.PatientBirthDate = _random_dicom_date_after_1900()
         worklist_item.PatientName = self._get_person_name()
         worklist_item.PatientID = _extend_with_random_to_length('', self._fault_provider._get_random_length(64), self._fault_provider._return_None_string)
@@ -128,13 +128,13 @@ class RandomWorklist:
         """ Generates a clean worklist """
 
         worklist_item = Dataset()
-        worklist_item.StudyInstanceUID = generate_uid(prefix='1.2.840.113619.2.391.6789.', entropy_srcs=[_random_unicode_string(10.0), _random_unicode_string(10.0)])
+        worklist_item.StudyInstanceUID = generate_uid(prefix='1.2.840.113619.2.391.6789.', entropy_srcs=[_random_unicode_string(10), _random_unicode_string(10)])
         worklist_item.Modality = 'US'
         worklist_item.SpecificCharacterSet = self._specific_charset
         worklist_item.AccessionNumber = '123'
         worklist_item.PatientBirthDate = '19901015'
         worklist_item.PatientName = 'Clean Exam'
-        worklist_item.PatientID = _random_unicode_string(64.0)
+        worklist_item.PatientID = _random_unicode_string(64)
         worklist_item.IssuerOfPatientID = 'Issuer of patient id: Bob'
         worklist_item.PatientWeight = str(100.0)
         worklist_item.PatientSize = str(2.1)
