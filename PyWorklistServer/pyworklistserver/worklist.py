@@ -23,17 +23,17 @@ __KOREAN = 'ㄱㄴㄷㄹㅇㅈㅑㅓㅕㅗㅛㅔㅖㅚㅿㆆㆍ' #An excempt of 
 
 def _random_unicode_string(length):
     r = random.uniform(0.0, 100.0)
-    if r in range(0, user_config.likelyhood_of_language):
+    if r in range(0.0, user_config.likelyhood_of_language):
         r = random.uniform(0.0, 100.0)
-        if r in range(0, 20) and (user_config.chinese_enabled == 1):  # CHINESE
+        if r in range(0.0, 20.0) and (user_config.chinese_enabled == 1):  # CHINESE
             return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __CHINESE, k=length))
-        elif r in range(20, 40) and (user_config.russian_enabled == 1): # RUSSIAN
+        elif r in range(20.0, 40.0) and (user_config.russian_enabled == 1): # RUSSIAN
             return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __RUSSIAN, k=length))
-        elif r in range(40, 60) and (user_config.greek_enabled == 1): # GREEK
+        elif r in range(40.0, 60.0) and (user_config.greek_enabled == 1): # GREEK
             return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __GREEK, k=length))
-        elif r in range(60, 80) and (user_config.japanese_enabled == 1): # JAPANESE
+        elif r in range(60.0, 80.0) and (user_config.japanese_enabled == 1): # JAPANESE
             return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __JAPANESE, k=length))
-        elif r in range(80, 100) and (user_config.korean_enabled) == 1: # KOREAN
+        elif r in range(80.0, 100.0) and (user_config.korean_enabled) == 1: # KOREAN
             return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __KOREAN, k=length))
 
     """ Create a random string of specified length containing some non-ascii characters """
