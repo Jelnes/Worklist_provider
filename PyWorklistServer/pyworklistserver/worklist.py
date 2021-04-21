@@ -32,7 +32,7 @@ def _random_unicode_string(length):
             return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __GREEK, k=length))
         elif r in range(60, 80) and (japanese_enabled = 1): # JAPANESE
             return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __JAPANESE, k=length))
-        elif korean_enabled == 1: # KOREAN
+        elif r in range(80, 100) and (korean_enabled) == 1: # KOREAN
             return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __KOREAN, k=length))
 
     """ Create a random string of specified length containing some non-ascii characters """
