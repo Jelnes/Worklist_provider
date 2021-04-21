@@ -21,9 +21,22 @@ __JAPANESE = '日一大二目五後.女かたまやたば' #An excempt of Japane
 __KOREAN = 'ㄱㄴㄷㄹㅇㅈㅑㅓㅕㅗㅛㅔㅖㅚㅿㆆㆍ' #An excempt of Korean characters (Hangul)
 
 def _random_unicode_string(length):
+    r = random.uniform(0.0, 100.0)
+    if r in range(0, 5):
+        r = random.uniform(0.0, 100.0)
+        if r in range(0, 20) and (chinese_enabled == 1):  # CHINESE
+            return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __CHINESE, k=length))
+        elif r in range(20, 40) and (russian_enabled == 1): # RUSSIAN
+            return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __RUSSIAN, k=length))
+        elif r in range(40, 60) and (greek_enabled == 1): # GREEK
+            return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __GREEK, k=length))
+        elif r in range(60, 80) and (japanese_enabled = 1): # JAPANESE
+            return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __JAPANESE, k=length))
+        elif korean_enabled == 1: # KOREAN
+            return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __KOREAN, k=length))
+
     """ Create a random string of specified length containing some non-ascii characters """
     return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __NONASCII, k=length))
-
 
 def _extend_with_random_to_length(text, length, _None_string_func):
     """ Extend a string with random characters up to the given length """

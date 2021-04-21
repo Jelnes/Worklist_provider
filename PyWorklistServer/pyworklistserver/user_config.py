@@ -36,3 +36,13 @@ empty_enabled = 1
 none_enabled = 1
 
 delay_enabled = 1
+
+chinese_enabled = 1
+
+russian_enabled = 1
+
+greek_enabled = 1
+
+japanese_enabled = 1
+
+korean_enabled = 1
