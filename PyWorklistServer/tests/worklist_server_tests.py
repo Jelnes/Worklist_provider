@@ -131,6 +131,69 @@ class WorklistServerTests(unittest.TestCase):
 
         self.assertEqual((worklist_item.PatientName), 'Clean Exam')
 
+        self._server._config_values.reset()
+        self._server._config_values.rateOfCleanExams = 0
+        self._server._config_values.rateOfRandomExams = 2
+
+        worklist = client.get_worklist(query_dataset)
+        worklist_item = worklist[0]
+
+        self.assertNotEqual((worklist_item.PatientName), 'Clean Exam')
+        self._server._config_values.reset()
+
+    def test_RequireThat_WorklistRequest_ReturnsLongStrings_WhenSet(self):
+        self._server._config_values.reset()
+        self._server._config_values.rateOfCleanExams = 0
+        self._server._config_values.rateOfRandomExams = 2
+
+        self._server._config_values.long_enabled = 1
+        self._server._config_values.empty_enabled = 0
+
+        self._server._config_values.likelyhood_of_long_string = 100.0
+
+        client = worklist_client.WorklistClient(self._server_config.network_address)
+
+        query_dataset = Dataset()
+        query_dataset.PatientName = '*'
+
+
+        worklist = client.get_worklist(query_dataset)
+        worklist_item = worklist[0]
+
+        self.assertTrue(len(worklist_item.CurrentPatientLocation) > 64)
+
+        self._server._config_values.long_enabled = 0
+
+        worklist = client.get_worklist(query_dataset)
+        worklist_item = worklist[0]
+
+        self.assertTrue(len(worklist_item.CurrentPatientLocation) <= 64)
+
+        self._server._config_values.reset()
+
+    def test_RequireThat_WorklistRequest_ReturnsEmptyStrings_WhenSet(self):
+        self._server._config_values.reset()
+        self._server._config_values.rateOfCleanExams = 0
+        self._server._config_values.rateOfRandomExams = 2
+
+        self._server._config_values.long_enabled = 0
+        self._server._config_values.empty_enabled = 1
+
+        self._server._config_values.likelyhood_of_long_string = 0.0
+        self._server._config_values.likelyhood_of_empty_string = 100.0
+
+        client = worklist_client.WorklistClient(self._server_config.network_address)
+
+        query_dataset = Dataset()
+        query_dataset.PatientName = '*'
+
+        worklist = client.get_worklist(query_dataset)
+        worklist_item = worklist[0]
+
+        self.assertEqual(len(worklist_item.CurrentPatientLocation), 0)
+
+        self._server._config_values.reset()
+
 
 
     def test_RequireThat_MultipleWorklistRequests_ReturnsIdenticalWorklists_ByUseOfSeed(self):

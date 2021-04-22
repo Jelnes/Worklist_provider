@@ -16,10 +16,10 @@ class FaultProvider:
         """ Return an int with size, either equal to defaultmax, or greater."""
         r = random.uniform(0.0, 100.0)
         if self._config_values.long_enabled == 1:
-            if (r <= self._config_values.likelyhood_of_long_string):
+            if (r < self._config_values.likelyhood_of_long_string):
                 return random.randrange(max_len+1, max_len+10)
         if self._config_values.empty_enabled == 1:
-            if (r > self._config_values.likelyhood_of_long_string and r <= (self._config_values.likelyhood_of_long_string + self._config_values.likelyhood_of_empty_string)):
+            if (r > self._config_values.likelyhood_of_long_string and r < (self._config_values.likelyhood_of_long_string + self._config_values.likelyhood_of_empty_string)):
                 return 0
         return max_len
 
