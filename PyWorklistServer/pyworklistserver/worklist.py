@@ -13,7 +13,7 @@ __NONASCII = 'æÆøØåÅßäöüÄÖÜ' #just an arbitrarily selected list of 
 
 __CHINESE = '也池馳弛水马弓土人女' #An excempt of chinese characters
 
-__RUSSIAN = 'ДРЛИПѰЦЗГБЖ'   #An excempt of russian characters
+__RUSSIAN = 'ДРЛИПЦЗГБЖ'   #An excempt of russian characters
 
 __GREEK = 'ΑαΒβΓγΔδΕεΖζΗηΘθΙιψΩω' #An excempt of Greek characters
 
