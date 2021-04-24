@@ -69,16 +69,9 @@ def _get_serverconfig_from_commandline():
         help='Path to log file where server activity is logged'
     )
 
-    parser.add_argument(
-        '--seed',
-        type=int,
-        default=0,
-        help='Seed to be used to generate patients'
-    )
-
     args = parser.parse_args()
     network_address = server_config.NetworkAddress(args.ip, args.port)
-    return (server_config.ServerConfig(network_address, args.aetitle, args.verbose), args.logfile, args.seed)
+    return (server_config.ServerConfig(network_address, args.aetitle, args.verbose), args.logfile)
 
 class PyDicomServer:
     """ Wrapper server implementation that supports stopping through Ctrl+C.
@@ -86,10 +79,10 @@ class PyDicomServer:
     This is just delegating to the core Worklist server implementation
     """
 
-    def __init__(self, config, app_logger, seed):
+    def __init__(self, config, app_logger):
         self._running = True
         self._logger = app_logger
-        self._server = worklist_server.WorklistServer(config, app_logger, seed, blocking=False)
+        self._server = worklist_server.WorklistServer(config, app_logger, blocking=False)
         signal.signal(signal.SIGINT, self._handle_signal)
 
     def run_until_stopped(self):
@@ -106,8 +99,8 @@ class PyDicomServer:
 
 
 if __name__ == '__main__':
-    server_config, logfile, seed = _get_serverconfig_from_commandline()
+    server_config, logfile = _get_serverconfig_from_commandline()
     logger = _configure_logger(logfile, logging.DEBUG if server_config.verbose else logging.WARN)
 
-    server = PyDicomServer(server_config, logger, seed)
+    server = PyDicomServer(server_config, logger)
     server.run_until_stopped()

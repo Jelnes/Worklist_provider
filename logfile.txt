@@ -1,0 +1,2 @@
+User_config:	rateOfRandomExams: 5	 rateOfCleanExams: 2	 minAmountOfWorklistExams: 20	 maxAmountOfWorklistExams: 70
+
