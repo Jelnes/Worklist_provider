@@ -1,6 +1,0 @@
-pip>=20.3.3
-pydicom>=2.1.2
-pynetdicom>=1.5.5
-setuptools>=40.8.0
-pytest>=6.2.1
-wheel>=0.36.2
