@@ -40,8 +40,8 @@ def _random_unicode_string(length):
     return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __NONASCII, k=length))
 
 def _clean_unicode_string(length):
-    """ Create a random string of specified length containing some non-ascii characters """
-    return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __NONASCII, k=length))
+    """ Create easily manageable string of specified length """
+    return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits, k=length))
 
 
 def _extend_with_random_to_length(text, length, _None_string_func):
