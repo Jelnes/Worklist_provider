@@ -9,4 +9,4 @@ if __name__ == '__main__':
     test.likelihood_of_delay = 100
     faultTest = fault_provider.FaultProvider(test)
 
-    print(faultTest._delay())
+    print(faultTest._sleep_random())

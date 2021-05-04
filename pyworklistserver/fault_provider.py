@@ -30,7 +30,7 @@ class FaultProvider:
                 return 1
         return 0
 
-    def _delay(self):
+    def _sleep_random(self):
         """Possibility of delaying the runtime"""
         if self._config_values.delay_enabled:
             return 0

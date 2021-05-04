@@ -101,7 +101,7 @@ class RandomWorklist:
         worklist_item.PatientName = self._get_person_name()
         worklist_item.PatientID = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string)
 
-        self._fault_provider._delay() #Possible delay
+        self._fault_provider._sleep_random() #Possible delay
 
         worklist_item.IssuerOfPatientID = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string)
         worklist_item.PatientWeight = str(random.uniform(10.0, 150.0))[:16]
