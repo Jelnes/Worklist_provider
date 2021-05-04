@@ -4,6 +4,17 @@ import random
 import time
 from pyworklistserver import user_config
 
+__NONASCII = 'æÆøØåÅßäöüÄÖÜ' #just an arbitrarily selected list of non ascii characters
+
+__CHINESE = '也池馳弛水马弓土人女' #An excempt of chinese characters
+
+__RUSSIAN = 'ДРЛИПЦЗГБЖ'   #An excempt of russian characters
+
+__GREEK = 'ΑαΒβΓγΔδΕεΖζΗηΘθΙιψΩω' #An excempt of Greek characters
+
+__JAPANESE = '日一大二目五後.女かたまやたば' #An excempt of Japanese characters (Kanji, Hiragana and Katakana)
+
+__KOREAN = 'ㄱㄴㄷㄹㅇㅈㅑㅓㅕㅗㅛㅔㅖㅚㅿㆆㆍ' #An excempt of Korean characters (Hangul)
 
 class FaultProvider:
     """ Gives faulty input to exam-objects """
@@ -30,7 +41,7 @@ class FaultProvider:
                 return 1
         return 0
 
-    def _sleep_random(self):
+    def _delay(self):
         """Possibility of delaying the runtime"""
         if self._config_values.delay_enabled:
             return 0
@@ -38,3 +49,19 @@ class FaultProvider:
         if (r <= self._config_values.likelihood_of_delay):
             time.sleep(self.delay_time)
         return 0
+
+    def _get_random_language_string(self):
+        r = random.uniform(0.0, 100.0)
+        if (r <= self.config_values.likelihood_of_language):
+            r = random.uniform(0.0, 100.0)
+            if (r < 20) and (self.config_values.chinese_enabled):  # CHINESE
+                return __CHINESE
+            elif (20 <= r < 40) and (self.config_values.russian_enabled): # RUSSIAN
+                return __RUSSIAN
+            elif (40 <= r < 60) and (self.config_values.greek_enabled): # GREEK
+                return __GREEK
+            elif (60 <= r < 80) and (self.config_values.japanese_enabled): # JAPANESE
+                return __JAPANESE
+            elif (80 <= r) and (self.config_values.korean_enabled): # KOREAN
+                return __KOREAN
+        return __NONASCII

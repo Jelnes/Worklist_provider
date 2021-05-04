@@ -8,37 +8,10 @@ from pydicom.dataset import Dataset
 from pyworklistserver import fault_provider
 from pyworklistserver import user_config
 
-
-__NONASCII = 'æÆøØåÅßäöüÄÖÜ' #just an arbitrarily selected list of non ascii characters
-
-__CHINESE = '也池馳弛水马弓土人女' #An excempt of chinese characters
-
-__RUSSIAN = 'ДРЛИПЦЗГБЖ'   #An excempt of russian characters
-
-__GREEK = 'ΑαΒβΓγΔδΕεΖζΗηΘθΙιψΩω' #An excempt of Greek characters
-
-__JAPANESE = '日一大二目五後.女かたまやたば' #An excempt of Japanese characters (Kanji, Hiragana and Katakana)
-
-__KOREAN = 'ㄱㄴㄷㄹㅇㅈㅑㅓㅕㅗㅛㅔㅖㅚㅿㆆㆍ' #An excempt of Korean characters (Hangul)
-
-def _random_unicode_string(length):
-    r = random.uniform(0.0, 100.0)
-    if (r <= user_config.likelihood_of_language):
-        r = random.uniform(0.0, 100.0)
-        if (r < 20) and (user_config.chinese_enabled):  # CHINESE
-            return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __CHINESE, k=length))
-        elif (20 <= r < 40) and (user_config.russian_enabled): # RUSSIAN
-            return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __RUSSIAN, k=length))
-        elif (40 <= r < 60) and (user_config.greek_enabled): # GREEK
-            return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __GREEK, k=length))
-        elif (60 <= r < 80) and (user_config.japanese_enabled): # JAPANESE
-            return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __JAPANESE, k=length))
-        elif (80 <= r) and (user_config.korean_enabled): # KOREAN
-            return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __KOREAN, k=length))
-
-    """ Create a random string of specified length containing some non-ascii characters """
-    return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __NONASCII, k=length))
-
+def _random_unicode_string(length, language_string):
+    """ Create a random string of specified length containing non-ascii, or characters from unsupported languages """
+    return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + language_string, k=length))
+    
 def _clean_unicode_string(length):
     """ Create easily manageable string of specified length """
     return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits, k=length))
