@@ -85,7 +85,7 @@ class WorklistServer:
                 worklist = self._worklist_factory.get_random_worklist()
 
             if event.is_cancelled:
-                app_logger.info('Exams are cancelled')
+                app_logger.info('Request cancelled by client')
                 yield (0xFE00, None)  # Check if C-CANCEL has been received
                 return
 
