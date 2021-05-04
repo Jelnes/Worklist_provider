@@ -35,16 +35,14 @@ class WorklistServer:
     def setup_log_seed(self):
         if os.path.exists("logfile.txt"):
             os.remove("logfile.txt")
-        f = open("logfile.txt", "w+")
-        f.write('User_config:\trateOfRandomExams: %d\t rateOfCleanExams: %d\t minAmountOfWorklistExams: %d\t maxAmountOfWorklistExams: %d\t seed_Number (set): %d\n likelihood_of_long_string: %d\t likelihood_of_empty_string: %d\t likelihood_of_None_string: %d\t likelihood_of_delay: %d\t is_long: %d\t is_empty: %d\t is_None: %d\t is_delay: %d \n\n'
-        % (user_config.rateOfRandomExams, user_config.rateOfCleanExams, user_config.minAmountOfWorklistExams, user_config.maxAmountOfWorklistExams, user_config.seed_Number, user_config.likelihood_of_long_string, user_config.likelihood_of_empty_string, user_config.likelihood_of_None_string, user_config.likelihood_of_delay, user_config.long_enabled, user_config.empty_enabled, user_config.none_enabled, user_config.delay_enabled))
+        with open("logfile.txt", "w+") as f:
+            f.write('User_config:\trateOfRandomExams: %d\t rateOfCleanExams: %d\t minAmountOfWorklistExams: %d\t maxAmountOfWorklistExams: %d\t seed_Number (set): %d\n likelihood_of_long_string: %d\t likelihood_of_empty_string: %d\t likelihood_of_None_string: %d\t likelihood_of_delay: %d\t is_long: %d\t is_empty: %d\t is_None: %d\t is_delay: %d \n\n'
+            % (user_config.rateOfRandomExams, user_config.rateOfCleanExams, user_config.minAmountOfWorklistExams, user_config.maxAmountOfWorklistExams, user_config.seed_Number, user_config.likelihood_of_long_string, user_config.likelihood_of_empty_string, user_config.likelihood_of_None_string, user_config.likelihood_of_delay, user_config.long_enabled, user_config.empty_enabled, user_config.none_enabled, user_config.delay_enabled))
 
-        f.close()
 
     def log_seed (self, seed):
-        f = open("logfile.txt", "a+")
-        f.write('%s\tSeed: %d\n' % (time.asctime(time.localtime()), seed))
-        f.close()
+        with open("logfile.txt", "a+") as f:
+            f.write('%s\tSeed: %d\n' % (time.asctime(time.localtime()), seed))
 
     def start(self):
         """ Start the server and listen to specified address and port """
