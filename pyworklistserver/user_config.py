@@ -1,5 +1,4 @@
 """ Sets variables for use of the worklist-generators"""
-import random
 
 #Maximall number of total patient-objects delivered from generator.
 maxAmountOfWorklistExams = 70
