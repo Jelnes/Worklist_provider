@@ -12,8 +12,8 @@ def _random_unicode_string(length, language_string):
     """ Create a random string of specified length containing non-ascii, or characters from unsupported languages """
     return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + language_string, k=length))
 
-def _clean_unicode_string(length):
-    """ Create easily manageable string of specified length """
+def _create_random_ascii_string(length):
+    """ Creates an ascii string with characters only in the range [0, 127] """
     return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits, k=length))
 
 
@@ -106,13 +106,13 @@ class RandomWorklist:
         """ Generates a clean worklist """
 
         worklist_item = Dataset()
-        worklist_item.StudyInstanceUID = generate_uid(prefix='1.2.840.113619.2.391.6789.', entropy_srcs=[_clean_unicode_string(10), _clean_unicode_string(10)])
+        worklist_item.StudyInstanceUID = generate_uid(prefix='1.2.840.113619.2.391.6789.', entropy_srcs=[_create_random_ascii_string(10), _create_random_ascii_string(10)])
         worklist_item.Modality = 'US'
         worklist_item.SpecificCharacterSet = self._specific_charset
         worklist_item.AccessionNumber = '123'
         worklist_item.PatientBirthDate = '19901015'
         worklist_item.PatientName = 'Clean^Exam'
-        worklist_item.PatientID = _clean_unicode_string(64)
+        worklist_item.PatientID = _create_random_ascii_string(64)
         worklist_item.IssuerOfPatientID = 'Issuer of patient id: Bob'
         worklist_item.PatientWeight = str(100.0)
         worklist_item.PatientSize = str(2.1)
