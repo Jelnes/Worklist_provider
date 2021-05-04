@@ -32,20 +32,20 @@ likelihood_of_delay = 2.0
 likelihood_of_language = 0
 
 #Enablers / Disablers of the fault_provider:
-long_enabled = 1
+long_enabled = True
 
-empty_enabled = 1
+empty_enabled = True
 
-none_enabled = 1
+none_enabled = True
 
-delay_enabled = 1
+delay_enabled = True
 
-chinese_enabled = 1
+chinese_enabled = True
 
-russian_enabled = 1
+russian_enabled = True
 
-greek_enabled = 1
+greek_enabled = True
 
-japanese_enabled = 1
+japanese_enabled = True
 
-korean_enabled = 1
+korean_enabled = True
