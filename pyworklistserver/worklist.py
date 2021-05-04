@@ -95,26 +95,26 @@ class RandomWorklist:
         worklist_item.StudyInstanceUID = generate_uid(prefix='1.2.840.113619.2.391.6789.', entropy_srcs=[_random_unicode_string(10), _random_unicode_string(10)])
         worklist_item.Modality = 'US'
         worklist_item.SpecificCharacterSet = self._specific_charset
-        worklist_item.CurrentPatientLocation = _extend_with_random_to_length('', self._fault_provider._get_random_length(64), self._fault_provider._return_None_string)
+        worklist_item.CurrentPatientLocation = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string)
         worklist_item.AccessionNumber = _random_unicode_string(16)
         worklist_item.PatientBirthDate = _random_dicom_date_after_1900()
         worklist_item.PatientName = self._get_person_name()
-        worklist_item.PatientID = _extend_with_random_to_length('', self._fault_provider._get_random_length(64), self._fault_provider._return_None_string)
+        worklist_item.PatientID = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string)
 
         self._fault_provider._delay() #Possible delay
 
-        worklist_item.IssuerOfPatientID = _extend_with_random_to_length('', self._fault_provider._get_random_length(64), self._fault_provider._return_None_string)
+        worklist_item.IssuerOfPatientID = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string)
         worklist_item.PatientWeight = str(random.uniform(10.0, 150.0))[:16]
         worklist_item.PatientSize = str(random.uniform(1.0, 2.5))[:16]
-        worklist_item.AdmissionID = _extend_with_random_to_length('', self._fault_provider._get_random_length(64), self._fault_provider._return_None_string)
-        worklist_item.RequestedProcedureID = _extend_with_random_to_length('', self._fault_provider._get_random_length(16), self._fault_provider._return_None_string)
-        worklist_item.RequestedProcedureDescription = _extend_with_random_to_length('', self._fault_provider._get_random_length(64), self._fault_provider._return_None_string)
+        worklist_item.AdmissionID = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string)
+        worklist_item.RequestedProcedureID = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(16), self._fault_provider._return_None_string)
+        worklist_item.RequestedProcedureDescription = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string)
         worklist_item.ReferringPhysicianName = self._get_person_name()
 
         otherPatientIdsSq = [Dataset(), Dataset()]
         for otherPatientId in otherPatientIdsSq:
-            otherPatientId.PatientID = _extend_with_random_to_length('', self._fault_provider._get_random_length(64), self._fault_provider._return_None_string)
-            otherPatientId.IssuerOfPatientID = _extend_with_random_to_length('', self._fault_provider._get_random_length(64), self._fault_provider._return_None_string)
+            otherPatientId.PatientID = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string)
+            otherPatientId.IssuerOfPatientID = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string)
             otherPatientId.TypeOfPatientID = 'TEXT'
 
         worklist_item.OtherPatientIDsSequence = otherPatientIdsSq
@@ -123,8 +123,8 @@ class RandomWorklist:
         step.ScheduledPerformingPhysicianName = self._get_person_name()
         step.ScheduledProcedureStepStartDate = _random_dicom_date_after_1900()
         step.ScheduledProcedureStepStartTime = _random_dicom_time()
-        step.ScheduledProcedureStepDescription = _extend_with_random_to_length('', self._fault_provider._get_random_length(64), self._fault_provider._return_None_string)
-        step.CommentsOnTheScheduledProcedureStep = _extend_with_random_to_length('', self._fault_provider._get_random_length(10240), self._fault_provider._return_None_string)
+        step.ScheduledProcedureStepDescription = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string)
+        step.CommentsOnTheScheduledProcedureStep = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(10240), self._fault_provider._return_None_string)
         worklist_item.ScheduledProcedureStepSequence = [step]
 
         return worklist_item

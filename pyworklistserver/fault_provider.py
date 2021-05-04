@@ -12,7 +12,7 @@ class FaultProvider:
 
         self.delay_time = 5
 
-    def _get_random_length(self, max_len):
+    def  _get_random_string_length(self, max_len):
         """ Return an int with size, either equal to maximum string length (based on DICOM tag), or greater."""
         r = random.uniform(0.0, 100.0)
         if self._config_values.long_enabled == 1:
