@@ -23,7 +23,7 @@ __KOREAN = 'ㄱㄴㄷㄹㅇㅈㅑㅓㅕㅗㅛㅔㅖㅚㅿㆆㆍ' #An excempt of 
 
 def _random_unicode_string(length):
     r = random.uniform(0.0, 100.0)
-    if (r <= user_config.likelyhood_of_language):
+    if (r <= user_config.likelihood_of_language):
         r = random.uniform(0.0, 100.0)
         if (r < 20) and (user_config.chinese_enabled == 1):  # CHINESE
             return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + __CHINESE, k=length))

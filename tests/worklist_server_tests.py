@@ -149,7 +149,7 @@ class WorklistServerTests(unittest.TestCase):
         self._server._config_values.long_enabled = 1
         self._server._config_values.empty_enabled = 0
 
-        self._server._config_values.likelyhood_of_long_string = 100.0
+        self._server._config_values.likelihood_of_long_string = 100.0
 
         client = worklist_client.WorklistClient(self._server_config.network_address)
 
@@ -179,8 +179,8 @@ class WorklistServerTests(unittest.TestCase):
         self._server._config_values.long_enabled = 0
         self._server._config_values.empty_enabled = 1
 
-        self._server._config_values.likelyhood_of_long_string = 0.0
-        self._server._config_values.likelyhood_of_empty_string = 100.0
+        self._server._config_values.likelihood_of_long_string = 0.0
+        self._server._config_values.likelihood_of_empty_string = 100.0
 
         client = worklist_client.WorklistClient(self._server_config.network_address)
 
