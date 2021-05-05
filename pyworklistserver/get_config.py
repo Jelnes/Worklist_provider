@@ -13,10 +13,11 @@ class GetConfig:
         self.likelihood_of_empty_string = user_config.likelihood_of_empty_string
         self.likelihood_of_None_string = user_config.likelihood_of_None_string
         self.likelihood_of_delay = user_config.likelihood_of_delay
+        self.likelihood_of_language = user_config.likelihood_of_language
 
         self.oversized_strings_enabled = user_config.oversized_strings_enabled
         self.empty_strings_enabled = user_config.empty_strings_enabled
-        self.none_strings_enabled  = user_config.none_strings_enabled 
+        self.none_strings_enabled  = user_config.none_strings_enabled
         self.delay_enabled = user_config.delay_enabled
 
     def reset(self):
@@ -29,8 +30,9 @@ class GetConfig:
         self.likelihood_of_empty_string = user_config.likelihood_of_empty_string
         self.likelihood_of_None_string = user_config.likelihood_of_None_string
         self.likelihood_of_delay = user_config.likelihood_of_delay
+        self.likelihood_of_language = user_config.likelihood_of_language
 
         self.oversized_strings_enabled = user_config.oversized_strings_enabled
         self.empty_strings_enabled = user_config.empty_strings_enabled
-        self.none_strings_enabled  = user_config.none_strings_enabled 
+        self.none_strings_enabled  = user_config.none_strings_enabled
         self.delay_enabled = user_config.delay_enabled
