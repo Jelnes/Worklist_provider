@@ -31,11 +31,11 @@ likelihood_of_delay = 2.0
 likelihood_of_language = 0
 
 #Enablers / Disablers of the fault_provider:
-long_enabled = True
+oversized_strings_enabled = True
 
-empty_enabled = True
+empty_strings_enabled = True
 
-none_enabled = True
+none_strings_enabled  = True
 
 delay_enabled = True
 

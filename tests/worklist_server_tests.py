@@ -146,8 +146,8 @@ class WorklistServerTests(unittest.TestCase):
         self._server._config_values.rateOfCleanExams = 0
         self._server._config_values.rateOfRandomExams = 2
 
-        self._server._config_values.long_enabled = True
-        self._server._config_values.empty_enabled = False
+        self._server._config_values.oversized_strings_enabled = True
+        self._server._config_values.empty_strings_enabled = False
 
         self._server._config_values.likelihood_of_long_string = 100.0
 
@@ -162,7 +162,7 @@ class WorklistServerTests(unittest.TestCase):
 
         self.assertTrue(len(worklist_item.CurrentPatientLocation) > 64)
 
-        self._server._config_values.long_enabled = False
+        self._server._config_values.oversized_strings_enabled = False
 
         worklist = client.get_worklist(query_dataset)
         worklist_item = worklist[0]
@@ -176,8 +176,8 @@ class WorklistServerTests(unittest.TestCase):
         self._server._config_values.rateOfCleanExams = 0
         self._server._config_values.rateOfRandomExams = 2
 
-        self._server._config_values.long_enabled = False
-        self._server._config_values.empty_enabled = True
+        self._server._config_values.oversized_strings_enabled = False
+        self._server._config_values.empty_strings_enabled = True
 
         self._server._config_values.likelihood_of_long_string = 0.0
         self._server._config_values.likelihood_of_empty_string = 100.0
