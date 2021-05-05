@@ -12,8 +12,9 @@ class GetConfig:
         self.likelihood_of_long_string = user_config.likelihood_of_long_string
         self.likelihood_of_empty_string = user_config.likelihood_of_empty_string
         self.likelihood_of_None_string = user_config.likelihood_of_None_string
-        self.likelihood_of_delay = user_config.likelihood_of_delay
         self.likelihood_of_language = user_config.likelihood_of_language
+        self.likelihood_of_delay = user_config.likelihood_of_delay
+        self.delay_time = user_config.delay_time
 
         self.oversized_strings_enabled = user_config.oversized_strings_enabled
         self.empty_strings_enabled = user_config.empty_strings_enabled

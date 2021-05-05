@@ -26,6 +26,9 @@ likelihood_of_None_string = 1.0
 #likelihood of a delay per exam. in percent
 likelihood_of_delay = 2.0
 
+#Seconds of delay when delay is called
+delay_time = 5
+
 #likelihood of using one of the unsupported languages, per line in exam, in percentage
 likelihood_of_language = 0
 
