@@ -52,16 +52,16 @@ class FaultProvider:
 
     def _get_random_language_string(self):
         r = random.uniform(0.0, 100.0)
-        if (r <= self.config_values.likelihood_of_language):
+        if (r <= self._config_values.likelihood_of_language):
             r = random.uniform(0.0, 100.0)
-            if (r < 20) and (self.config_values.chinese_enabled):  # CHINESE
+            if (r < 20) and (self._config_values.chinese_enabled):  # CHINESE
                 return __CHINESE
-            elif (20 <= r < 40) and (self.config_values.russian_enabled): # RUSSIAN
+            elif (20 <= r < 40) and (self._config_values.russian_enabled): # RUSSIAN
                 return __RUSSIAN
-            elif (40 <= r < 60) and (self.config_values.greek_enabled): # GREEK
+            elif (40 <= r < 60) and (self._config_values.greek_enabled): # GREEK
                 return __GREEK
-            elif (60 <= r < 80) and (self.config_values.japanese_enabled): # JAPANESE
+            elif (60 <= r < 80) and (self._config_values.japanese_enabled): # JAPANESE
                 return __JAPANESE
-            elif (80 <= r) and (self.config_values.korean_enabled): # KOREAN
+            elif (80 <= r) and (self._config_values.korean_enabled): # KOREAN
                 return __KOREAN
         return __NONASCII
