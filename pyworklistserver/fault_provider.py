@@ -24,8 +24,8 @@ class FaultProvider:
         if (self._config_values.none_strings_enabled ):
             r = random.uniform(0.0, 100.0)
             if (r <= self._config_values.likelihood_of_None_string):
-                return 1
-        return 0
+                return True
+        return False
 
     def _sleep_random(self):
         """Possibility of delaying the runtime"""
@@ -34,6 +34,3 @@ class FaultProvider:
             if (r <= self._config_values.likelihood_of_delay):
                 time.sleep(self._config_values.delay_time)
         return 0
-
-
-

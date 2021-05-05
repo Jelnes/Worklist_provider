@@ -47,7 +47,7 @@ def _create_random_ascii_string(length):
 
 def _extend_with_random_to_length(text, length, _None_string_func):
     """ Extend a string with random characters up to the given length """
-    if _None_string_func() == 1:
+    if _None_string_func():
         return None
     if length == 0:
         return ''
