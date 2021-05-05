@@ -8,6 +8,34 @@ from pydicom.dataset import Dataset
 from pyworklistserver import fault_provider
 from pyworklistserver import user_config
 
+__NONASCII = 'æÆøØåÅßäöüÄÖÜ'  # just an arbitrarily selected list of non ascii characters
+
+__CHINESE = '也池馳弛水马弓土人女'  # An excempt of chinese characters
+
+__RUSSIAN = 'ДРЛИПЦЗГБЖ'  # An excempt of russian characters
+
+__GREEK = 'ΑαΒβΓγΔδΕεΖζΗηΘθΙιψΩω'  # An excempt of Greek characters
+
+__JAPANESE = '日一大二目五後.女かたまやたば'  # An excempt of Japanese characters (Kanji, Hiragana and Katakana)
+
+__KOREAN = 'ㄱㄴㄷㄹㅇㅈㅑㅓㅕㅗㅛㅔㅖㅚㅿㆆㆍ'  # An excempt of Korean characters (Hangul)
+
+def _get_random_language_string():
+    r = random.uniform(0.0, 100.0)
+    if (r <= user_config.likelihood_of_language):
+        r = random.uniform(0.0, 100.0)
+        if (r < 20) and (user_config.chinese_enabled):  # CHINESE
+            return __CHINESE
+        elif (20 <= r < 40) and (user_config.russian_enabled):  # RUSSIAN
+            return __RUSSIAN
+        elif (40 <= r < 60) and (user_config.greek_enabled):  # GREEK
+            return __GREEK
+        elif (60 <= r < 80) and (user_config.japanese_enabled):  # JAPANESE
+            return __JAPANESE
+        elif (80 <= r) and (user_config.korean_enabled):  # KOREAN
+            return __KOREAN
+    return __NONASCII
+
 def _random_unicode_string(length, language_string):
     """ Create a random string of specified length containing non-ascii, or characters from unsupported languages """
     return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits + language_string, k=length))
