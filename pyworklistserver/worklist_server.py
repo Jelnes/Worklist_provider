@@ -72,11 +72,10 @@ class WorklistServer:
         random.seed(seed)
         self.log_seed(seed)
 
-        totalRate = self._config_values.rateOfRandomExams + self._config_values.rateOfCleanExams
         totalExams = random.randrange(self._config_values.minAmountOfWorklistExams, self._config_values.maxAmountOfWorklistExams)
 
         for i in range (totalExams):
-            r = random.randrange(1, totalRate)
+            r = random.uniform(0, 1)
             if r <= self._config_values.rateOfCleanExams:
                 worklist = self._worklist_factory.get_clean_worklist()
             else:

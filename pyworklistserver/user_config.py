@@ -6,11 +6,10 @@ maxAmountOfWorklistExams = 70
 #Minimum number of total patient-objects delivered from generator.
 minAmountOfWorklistExams = 20
 
-#Rate of clean patient-objects delivered from generator.
-rateOfCleanExams = 2
+#Rate of clean and random patient-objects delivered from generator.
+rateOfCleanExams = 0.5
 
-#Rate of random patient-objects delivered from generator.
-rateOfRandomExams = 5
+rateOfRandomExams = 1 - rateOfCleanExams
 
 #Generator seed value, if command line argument not set. Set to 0 for seed to be set to a random number.
 seed_Number = 0

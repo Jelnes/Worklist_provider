@@ -117,7 +117,7 @@ class WorklistServerTests(unittest.TestCase):
 
     def test_RequireThat_WorklistRequest_ReturnsCleanWorklist_WhenSet(self):
         self._server._config_values.reset()
-        self._server._config_values.rateOfCleanExams = 2
+        self._server._config_values.rateOfCleanExams = 1
         self._server._config_values.rateOfRandomExams = 0
 
         client = worklist_client.WorklistClient(self._server_config.network_address)
@@ -133,7 +133,7 @@ class WorklistServerTests(unittest.TestCase):
 
         self._server._config_values.reset()
         self._server._config_values.rateOfCleanExams = 0
-        self._server._config_values.rateOfRandomExams = 2
+        self._server._config_values.rateOfRandomExams = 1
 
         worklist = client.get_worklist(query_dataset)
         worklist_item = worklist[0]
@@ -144,7 +144,7 @@ class WorklistServerTests(unittest.TestCase):
     def test_RequireThat_WorklistRequest_ReturnsLongStrings_WhenSet(self):
         self._server._config_values.reset()
         self._server._config_values.rateOfCleanExams = 0
-        self._server._config_values.rateOfRandomExams = 2
+        self._server._config_values.rateOfRandomExams = 1
 
         self._server._config_values.oversized_strings_enabled = True
         self._server._config_values.empty_strings_enabled = False
@@ -174,7 +174,7 @@ class WorklistServerTests(unittest.TestCase):
     def test_RequireThat_WorklistRequest_ReturnsEmptyStrings_WhenSet(self):
         self._server._config_values.reset()
         self._server._config_values.rateOfCleanExams = 0
-        self._server._config_values.rateOfRandomExams = 2
+        self._server._config_values.rateOfRandomExams = 1
 
         self._server._config_values.oversized_strings_enabled = False
         self._server._config_values.empty_strings_enabled = True
