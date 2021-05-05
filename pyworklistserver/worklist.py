@@ -51,11 +51,11 @@ def _extend_with_random_to_length(text, length, _None_string_func):
         return None
     if length == 0:
         return ''
-    return text + _random_unicode_string(length - len(text), self._fault_provider._get_random_language_string())
+    return text + _random_unicode_string(length - len(text), _get_random_language_string())
 
 def _random_person_name(max_len_per_name):
     """ Create a random person name separated by ^ character """
-    return '^'.join([_random_unicode_string(max_len_per_name, self._fault_provider._get_random_language_string()) for _ in range(1, random.randrange(2, 4))])
+    return '^'.join([_random_unicode_string(max_len_per_name, _get_random_language_string()) for _ in range(1, random.randrange(2, 4))])
 
 def _random_number_string(max_len):
     """ Create a random string containing numeric values only """
@@ -93,11 +93,11 @@ class RandomWorklist:
         """ Generate a random worklist """
 
         worklist_item = Dataset()
-        worklist_item.StudyInstanceUID = generate_uid(prefix='1.2.840.113619.2.391.6789.', entropy_srcs=[_random_unicode_string(10, self._fault_provider._get_random_language_string()), _random_unicode_string(10, self._fault_provider._get_random_language_string())])
+        worklist_item.StudyInstanceUID = generate_uid(prefix='1.2.840.113619.2.391.6789.', entropy_srcs=[_random_unicode_string(10, _get_random_language_string()), _random_unicode_string(10, _get_random_language_string())])
         worklist_item.Modality = 'US'
         worklist_item.SpecificCharacterSet = self._specific_charset
         worklist_item.CurrentPatientLocation = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string)
-        worklist_item.AccessionNumber = _random_unicode_string(16, self._fault_provider._get_random_language_string())
+        worklist_item.AccessionNumber = _random_unicode_string(16, _get_random_language_string())
         worklist_item.PatientBirthDate = _random_dicom_date_after_1900()
         worklist_item.PatientName = self._get_person_name()
         worklist_item.PatientID = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string)
