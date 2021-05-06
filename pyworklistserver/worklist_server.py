@@ -17,7 +17,7 @@ class WorklistServer:
 
     def __init__(self, serverConfig, app_logger, blocking):
         self._config = serverConfig
-        self._config_values = get_config.GetConfig()
+        self._config_values = get_config.ConfigProvider()
         self._logger = app_logger
         self._blocking = blocking
         self._worklist_factory = worklist.RandomWorklist('ISO_IR 100', self._config_values)
