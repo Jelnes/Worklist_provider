@@ -129,7 +129,7 @@ class WorklistServerTests(unittest.TestCase):
         worklist = client.get_worklist(query_dataset)
         worklist_item = worklist[0]
 
-        self.assertEqual((worklist_item.PatientName), 'Clean Exam')
+        self.assertEqual((worklist_item.PatientName), 'Clean^Exam')
 
         self._server._config_values.reset()
         self._server._config_values.rateOfCleanExams = 0
@@ -138,7 +138,7 @@ class WorklistServerTests(unittest.TestCase):
         worklist = client.get_worklist(query_dataset)
         worklist_item = worklist[0]
 
-        self.assertNotEqual((worklist_item.PatientName), 'Clean Exam')
+        self.assertNotEqual((worklist_item.PatientName), 'Clean^Exam')
         self._server._config_values.reset()
 
     def test_RequireThat_WorklistRequest_ReturnsLongStrings_WhenSet(self):
