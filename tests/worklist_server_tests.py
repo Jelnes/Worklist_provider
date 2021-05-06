@@ -215,19 +215,24 @@ class WorklistServerTests(unittest.TestCase):
         worklist_item_one = worklist_one[exam]
         worklist_item_two = worklist_two[exam]
 
-        self.assertEqual(worklist_item_one.StudyInstanceUID, worklist_item_two.StudyInstanceUID)
-        self.assertEqual(worklist_item_one.Modality, worklist_item_two.Modality)
-        self.assertEqual(worklist_item_one.SpecificCharacterSet, worklist_item_two.SpecificCharacterSet)
-        self.assertEqual(worklist_item_one.AccessionNumber, worklist_item_two.AccessionNumber)
-        self.assertEqual(worklist_item_one.PatientBirthDate, worklist_item_two.PatientBirthDate)
-        self.assertEqual(worklist_item_one.PatientName, worklist_item_two.PatientName)
-        self.assertEqual(worklist_item_one.PatientID, worklist_item_two.PatientID)
-        self.assertEqual(worklist_item_one.IssuerOfPatientID, worklist_item_two.IssuerOfPatientID)
-        self.assertEqual(worklist_item_one.PatientWeight, worklist_item_two.PatientWeight)
-        self.assertEqual(worklist_item_one.PatientSize, worklist_item_two.PatientSize)
-        self.assertEqual(worklist_item_one.AdmissionID, worklist_item_two.AdmissionID)
-        self.assertEqual(worklist_item_one.RequestedProcedureID, worklist_item_two.RequestedProcedureID)
-        self.assertEqual(worklist_item_one.RequestedProcedureDescription, worklist_item_two.RequestedProcedureDescription)
+        tags = [
+            "StudyInstanceUID",
+            "Modality",
+            "SpecificCharacterSet",
+            "AccessionNumber",
+            "PatientBirthDate",
+            "PatientName",
+            "PatientID",
+            "IssuerOfPatientID",
+            "PatientWeight",
+            "PatientSize",
+            "AdmissionID",
+            "RequestedProcedureID",
+            "RequestedProcedureDescription"
+        ]
+
+        for tag in tags:
+            self.assertEqual(worklist_item_one[tag], worklist_item_two[tag])
 
         for i in range(len(worklist_item_one.OtherPatientIDsSequence)):
             self.assertEqual(worklist_item_one.OtherPatientIDsSequence[i].PatientID, worklist_item_two.OtherPatientIDsSequence[i].PatientID)
