@@ -1,52 +1,24 @@
 """ Sets variables for use of the worklist-generators"""
 
-#Maximall number of total patient-objects delivered from generator.
-maxAmountOfWorklistExams = 70
+default_config = {
+  "maxAmountOfWorklistExams":   70,         #Maximall number of total patient-objects delivered from generator.  
+  "minAmountOfWorklistExams":   20,         #Minimum number of total patient-objects delivered from generator.
+  "rateOfCleanExams":           0.5,        #Rate of clean patient-objects delivered from generator.
+  "likelihoodOfLongString":     2.0,        #likelihood of returning long string, per line in exam, percentage 
+  "likelihoodOfEmptyString":    1.0,        #likelihood of returning empty string, per line in exam, percentage
+  "likelihoodOfNoneString":     1.0,        #likelihood of returning None instead of string. In percentage
+  "likelihoodOfDelay":          2.0,        #likelihood of a delay per exam. in percent 
+  "delayTime":                  5,          #Seconds of delay when delay is called 
+  "likelihoodOfLanguage":       0,          #likelihood of using one of the unsupported languages, per line in exam, in percentage
 
-#Minimum number of total patient-objects delivered from generator.
-minAmountOfWorklistExams = 20
-
-#Rate of clean and random patient-objects delivered from generator.
-rateOfCleanExams = 0.5
-
-rateOfRandomExams = 1 - rateOfCleanExams
-
-#Generator seed value, if command line argument not set. Set to 0 for seed to be set to a random number.
-seed_Number = 0
-
-#likelihood of returning long string, per line in exam, percentage
-likelihood_of_long_string = 2.0
-
-#likelihood of returning empty string, per line in exam, percentage
-likelihood_of_empty_string = 1.0
-
-#likelihood of returning None instead of string. In percentage
-likelihood_of_None_string = 1.0
-
-#likelihood of a delay per exam. in percent
-likelihood_of_delay = 2.0
-
-#Seconds of delay when delay is called
-delay_time = 5
-
-#likelihood of using one of the unsupported languages, per line in exam, in percentage
-likelihood_of_language = 0
-
-#Enablers / Disablers of the fault_provider:
-oversized_strings_enabled = True
-
-empty_strings_enabled = True
-
-none_strings_enabled  = True
-
-delay_enabled = True
-
-chinese_enabled = True
-
-russian_enabled = True
-
-greek_enabled = True
-
-japanese_enabled = True
-
-korean_enabled = True
+  #Enablers / Disablers of the fault_provider:
+  "oversizedStringsEnabled":    True,             
+  "emptyStringsEnabled":        True,
+  "noneStringsEnabled":         True,
+  "delayEnabled":               True,
+  "chineseEnabled":             True,
+  "russianEnabled":             True,
+  "greekEnabled":               True,
+  "japaneseEnabled":            True,
+  "koreanEnabled":              True
+}

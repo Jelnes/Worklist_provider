@@ -22,17 +22,17 @@ __KOREAN = 'ㄱㄴㄷㄹㅇㅈㅑㅓㅕㅗㅛㅔㅖㅚㅿㆆㆍ'  # An excempt o
 
 def _get_random_language_string():
     r = random.uniform(0.0, 100.0)
-    if (r <= user_config.likelihood_of_language):
+    if (r <= user_config.default_config["likelihoodOfLanguage"]):
         r = random.uniform(0.0, 100.0)
-        if (r < 20) and (user_config.chinese_enabled):  # CHINESE
+        if (r < 20) and (user_config.default_config["chineseEnabled"]):  # CHINESE
             return __CHINESE
-        elif (20 <= r < 40) and (user_config.russian_enabled):  # RUSSIAN
+        elif (20 <= r < 40) and (user_config.default_config["russianEnabled"]):  # RUSSIAN
             return __RUSSIAN
-        elif (40 <= r < 60) and (user_config.greek_enabled):  # GREEK
+        elif (40 <= r < 60) and (user_config.default_config["greekEnabled"]):  # GREEK
             return __GREEK
-        elif (60 <= r < 80) and (user_config.japanese_enabled):  # JAPANESE
+        elif (60 <= r < 80) and (user_config.default_config["japaneseEnabled"]):  # JAPANESE
             return __JAPANESE
-        elif (80 <= r) and (user_config.korean_enabled):  # KOREAN
+        elif (80 <= r) and (user_config.default_config["koreanEnabled"]):  # KOREAN
             return __KOREAN
     return __NONASCII
 

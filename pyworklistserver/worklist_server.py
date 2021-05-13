@@ -17,7 +17,8 @@ class WorklistServer:
 
     def __init__(self, serverConfig, app_logger, seedfile, reproduce, blocking):
         self._config = serverConfig
-        self._config_values = get_config.ConfigProvider()
+        self._config_provider = get_config.ConfigProvider()
+        self._config_values = self._config_provider.defaultConfig
         self._logger = app_logger
         self._blocking = blocking
         self._seedfile = seedfile
@@ -28,6 +29,7 @@ class WorklistServer:
         ]
         self._server = None
 
+<<<<<<< HEAD
     def get_seedNumber(self):
         """Return Function for seed-value"""
         if self._reproduce:
@@ -39,6 +41,8 @@ class WorklistServer:
                 f.write(str(seed))
         return seed
 
+=======
+>>>>>>> 335d443 (Put content in user-config.py in dictionary, and updated use througout project. Purpose: Cleaner code and opening the possibility to merge with config-input from command-line.)
     def start(self):
         """ Start the server and listen to specified address and port """
         ae = AE(self._config.ae_title)
@@ -49,7 +53,10 @@ class WorklistServer:
             self._config.network_address.port)
         )
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 335d443 (Put content in user-config.py in dictionary, and updated use througout project. Purpose: Cleaner code and opening the possibility to merge with config-input from command-line.)
         self._server = ae.start_server(
             self._config.network_address,
             evt_handlers=self._handlers,
@@ -62,14 +69,14 @@ class WorklistServer:
 
     def _on_find(self, event, app_logger):
         """ Event handler for C-FIND requests """
-        seed = self.get_seedNumber()
+        seed = random.randrange(1, 1000000)
         random.seed(seed)
 
-        totalExams = random.randrange(self._config_values.minAmountOfWorklistExams, self._config_values.maxAmountOfWorklistExams)
+        totalExams = random.randrange(self._config_values["minAmountOfWorklistExams"], self._config_values["maxAmountOfWorklistExams"])
 
         for i in range (totalExams):
             r = random.uniform(0, 1)
-            if r <= self._config_values.rateOfCleanExams:
+            if r <= self._config_values["rateOfCleanExams"]:
                 worklist = self._worklist_factory.get_clean_worklist()
             else:
                 worklist = self._worklist_factory.get_random_worklist()

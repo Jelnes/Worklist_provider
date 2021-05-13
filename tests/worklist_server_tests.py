@@ -97,7 +97,7 @@ class WorklistServerTests(unittest.TestCase):
         query_dataset = Dataset()
         query_dataset.PatientName = '*'
         worklist = client.get_worklist(query_dataset)
-        self.assertTrue(len(worklist) >= user_config.minAmountOfWorklistExams and len(worklist) <= user_config.maxAmountOfWorklistExams)
+        self.assertTrue(len(worklist) >= user_config.default_config["minAmountOfWorklistExams"] and len(worklist) <= user_config.default_config["maxAmountOfWorklistExams"])
 
     def test_RequireThat_MulipleWorklistRequests_ReturnsWorklistWithSameLength_ByUseOfSeed(self):
         client = worklist_client.WorklistClient(self._server_config.network_address)
@@ -116,9 +116,8 @@ class WorklistServerTests(unittest.TestCase):
         self.assertEqual(len(worklist_one), len(worklist_two))
 
     def test_RequireThat_WorklistRequest_ReturnsCleanWorklist_WhenSet(self):
-        self._server._config_values.reset()
-        self._server._config_values.rateOfCleanExams = 1
-        self._server._config_values.rateOfRandomExams = 0
+        self._server._config_provider.reset()
+        self._server._config_values["rateOfCleanExams"] = 1
 
         client = worklist_client.WorklistClient(self._server_config.network_address)
 
@@ -131,25 +130,23 @@ class WorklistServerTests(unittest.TestCase):
 
         self.assertEqual((worklist_item.PatientName), 'Clean^Exam')
 
-        self._server._config_values.reset()
-        self._server._config_values.rateOfCleanExams = 0
-        self._server._config_values.rateOfRandomExams = 1
+        self._server._config_provider.reset()
+        self._server._config_values["rateOfCleanExams"] = 0
 
         worklist = client.get_worklist(query_dataset)
         worklist_item = worklist[0]
 
         self.assertNotEqual((worklist_item.PatientName), 'Clean^Exam')
-        self._server._config_values.reset()
+        self._server._config_provider.reset()
 
     def test_RequireThat_WorklistRequest_ReturnsLongStrings_WhenSet(self):
-        self._server._config_values.reset()
-        self._server._config_values.rateOfCleanExams = 0
-        self._server._config_values.rateOfRandomExams = 1
+        self._server._config_provider.reset()
+        self._server._config_values["rateOfCleanExams"] = 0
 
-        self._server._config_values.oversized_strings_enabled = True
-        self._server._config_values.empty_strings_enabled = False
+        self._server._config_values["oversizedStringsEnabled"] = True
+        self._server._config_values["emptyStringsEnabled"] = False
 
-        self._server._config_values.likelihood_of_long_string = 100.0
+        self._server._config_values["likelihoodOfLongString"] = 100.0
 
         client = worklist_client.WorklistClient(self._server_config.network_address)
 
@@ -162,25 +159,24 @@ class WorklistServerTests(unittest.TestCase):
 
         self.assertTrue(len(worklist_item.CurrentPatientLocation) > 64)
 
-        self._server._config_values.oversized_strings_enabled = False
+        self._server._config_values["oversizedStringsEnabled"] = False
 
         worklist = client.get_worklist(query_dataset)
         worklist_item = worklist[0]
 
         self.assertTrue(len(worklist_item.CurrentPatientLocation) <= 64)
 
-        self._server._config_values.reset()
+        self._server._config_provider.reset()
 
     def test_RequireThat_WorklistRequest_ReturnsEmptyStrings_WhenSet(self):
-        self._server._config_values.reset()
-        self._server._config_values.rateOfCleanExams = 0
-        self._server._config_values.rateOfRandomExams = 1
+        self._server._config_provider.reset()
+        self._server._config_values["rateOfCleanExams"] = 0
 
-        self._server._config_values.oversized_strings_enabled = False
-        self._server._config_values.empty_strings_enabled = True
+        self._server._config_values["oversizedStringsEnabled"] = False
+        self._server._config_values["EmptyStringsEnabled"] = True
 
-        self._server._config_values.likelihood_of_long_string = 0.0
-        self._server._config_values.likelihood_of_empty_string = 100.0
+        self._server._config_values["likelihoodOfLongString"] = 0.0
+        self._server._config_values["likelihoodOfEmptyString"] = 100.0
 
         client = worklist_client.WorklistClient(self._server_config.network_address)
 
@@ -192,7 +188,7 @@ class WorklistServerTests(unittest.TestCase):
 
         self.assertEqual(len(worklist_item.CurrentPatientLocation), 0)
 
-        self._server._config_values.reset()
+        self._server._config_provider.reset()
 
 
 
@@ -246,6 +242,7 @@ class WorklistServerTests(unittest.TestCase):
             self.assertEqual(worklist_item_one.ScheduledProcedureStepSequence[i].ScheduledProcedureStepDescription, worklist_item_two.ScheduledProcedureStepSequence[i].ScheduledProcedureStepDescription)
             self.assertEqual(worklist_item_one.ScheduledProcedureStepSequence[i].CommentsOnTheScheduledProcedureStep, worklist_item_two.ScheduledProcedureStepSequence[i].CommentsOnTheScheduledProcedureStep)
 
+<<<<<<< HEAD
     def test_RequireThat_Seedfile_UpdatesWhen_ReproduceFalse(self):
         client = worklist_client.WorklistClient(self._server_config.network_address)
 
@@ -279,6 +276,9 @@ class WorklistServerTests(unittest.TestCase):
         worklist_two = client.get_worklist(query_dataset)
         with open("seed.txt", "r") as f:
             seed2 = f.read()
+=======
+
+>>>>>>> 335d443 (Put content in user-config.py in dictionary, and updated use througout project. Purpose: Cleaner code and opening the possibility to merge with config-input from command-line.)
 
         self.assertTrue(seed1 == seed2)
 
