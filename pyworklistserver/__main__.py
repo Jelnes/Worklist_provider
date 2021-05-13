@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Application entry point. The functions and classes in this 
+""" Application entry point. The functions and classes in this
 module are responsible for handling command line arguments logging
 and keyboard interrupts """
 
@@ -40,38 +40,52 @@ def _configure_logger(filename, pynetdicom_verbosity: int):
 def _get_serverconfig_from_commandline():
     parser = argparse.ArgumentParser(description='Launch dicom worklist server')
     parser.add_argument(
-        '--ip', 
-        default='127.0.0.1', 
+        '--ip',
+        default='127.0.0.1',
         help='Ip address that this server runs under'
     )
 
     parser.add_argument(
-        '--port', 
-        type=int, 
-        default=104, 
+        '--port',
+        type=int,
+        default=104,
         help='port that this server will listen to'
     )
 
     parser.add_argument(
-        '--aetitle', 
-        default='PyWorklistServer', 
+        '--aetitle',
+        default='PyWorklistServer',
         help='DICOM Application Entity title that identifies the server (Max 16 characters)'
     )
 
     parser.add_argument(
-        '--verbose', 
-        action='store_true', 
+        '--verbose',
+        action='store_true',
         help='Extra logging'
     )
 
     parser.add_argument(
-        '--logfile', 
+        '--logfile',
         help='Path to log file where server activity is logged'
+    )
+
+    parser.add_argument(
+        '--seedfile'
+        default='seed.txt'
+        help='Path to seed file where last seed is stored for Reproduction'
+    )
+
+    parser.add_argument(
+        '--reproduce'
+        type=int,
+        choices=range(0, 1),
+        default=0,
+        help='Reproduction with last seed. 0 for OFF, 1 for ON'
     )
 
     args = parser.parse_args()
     network_address = server_config.NetworkAddress(args.ip, args.port)
-    return (server_config.ServerConfig(network_address, args.aetitle, args.verbose), args.logfile)
+    return (server_config.ServerConfig(network_address, args.aetitle, args.verbose), args.logfile, args.seedfile, args.reproduce)
 
 class PyDicomServer:
     """ Wrapper server implementation that supports stopping through Ctrl+C.
@@ -79,10 +93,10 @@ class PyDicomServer:
     This is just delegating to the core Worklist server implementation
     """
 
-    def __init__(self, config, app_logger):
+    def __init__(self, config, app_logger, seedfile, reproduce):
         self._running = True
         self._logger = app_logger
-        self._server = worklist_server.WorklistServer(config, app_logger, blocking=False)
+        self._server = worklist_server.WorklistServer(config, app_logger, seedfile, reproduce, blocking=False)
         signal.signal(signal.SIGINT, self._handle_signal)
 
     def run_until_stopped(self):
@@ -99,8 +113,8 @@ class PyDicomServer:
 
 
 if __name__ == '__main__':
-    server_config, logfile = _get_serverconfig_from_commandline()
+    server_config, logfile, seedfile, reproduce = _get_serverconfig_from_commandline()
     logger = _configure_logger(logfile, logging.DEBUG if server_config.verbose else logging.WARN)
 
-    server = PyDicomServer(server_config, logger)
+    server = PyDicomServer(server_config, logger, seedfile, reproduce)
     server.run_until_stopped()
