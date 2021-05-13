@@ -70,15 +70,14 @@ def _get_serverconfig_from_commandline():
     )
 
     parser.add_argument(
-        '--seedfile'
-        default='seed.txt'
+        '--seedfile',
+        default='seed.txt',
         help='Path to seed file where last seed is stored for Reproduction'
     )
 
     parser.add_argument(
-        '--reproduce'
+        '--reproduce',
         type=int,
-        choices=range(0, 1),
         default=0,
         help='Reproduction with last seed. 0 for OFF, 1 for ON'
     )
