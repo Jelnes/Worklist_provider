@@ -77,9 +77,8 @@ def _get_serverconfig_from_commandline():
 
     parser.add_argument(
         '--reproduce',
-        type=int,
-        default=0,
-        help='Reproduction with last seed. 0 for OFF, 1 for ON'
+        action='store_true',
+        help='Reproduction with last seed.'
     )
 
     args = parser.parse_args()

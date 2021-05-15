@@ -30,7 +30,7 @@ class WorklistServer:
 
     def get_seedNumber(self):
         """Return Function for seed-value"""
-        if self._reproduce == 1:
+        if self._reproduce:
             with open(self._seedfile, "r") as f:
                 seed = f.read()
         else:
