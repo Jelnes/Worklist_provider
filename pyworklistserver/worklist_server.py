@@ -32,7 +32,7 @@ class WorklistServer:
         """Return Function for seed-value"""
         if self._reproduce:
             with open(self._seedfile, "r") as f:
-                seed = f.read()
+                seed = int(f.read())
         else:
             seed = random.randrange(1, 1000000)
             with open(self._seedfile, "w") as f:
