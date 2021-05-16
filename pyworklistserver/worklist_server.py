@@ -15,11 +15,13 @@ class WorklistServer:
     implementation class is responsible for network communication with
     the client. """
 
-    def __init__(self, serverConfig, app_logger, blocking):
+    def __init__(self, serverConfig, app_logger, seedfile, reproduce, blocking):
         self._config = serverConfig
         self._config_values = get_config.ConfigProvider()
         self._logger = app_logger
         self._blocking = blocking
+        self._seedfile = seedfile
+        self._reproduce = reproduce
         self._worklist_factory = worklist.RandomWorklist('ISO_IR 100', self._config_values)
         self._handlers = [
             (evt.EVT_C_FIND, self._on_find, [app_logger]),
@@ -28,21 +30,14 @@ class WorklistServer:
 
     def get_seedNumber(self):
         """Return Function for seed-value"""
-        if self._config_values.seed_Number == 0:
-            return random.randrange(1, 1000000)
-        return self._config_values.seed_Number
-
-    def setup_log_seed(self):
-        if os.path.exists("logfile.txt"):
-            os.remove("logfile.txt")
-        with open("logfile.txt", "w+") as f:
-            f.write('User_config:\trateOfRandomExams: %d\t rateOfCleanExams: %d\t minAmountOfWorklistExams: %d\t maxAmountOfWorklistExams: %d\t seed_Number (set): %d\n likelihood_of_long_string: %d\t likelihood_of_empty_string: %d\t likelihood_of_None_string: %d\t likelihood_of_delay: %d\t is_long: %d\t is_empty: %d\t is_None: %d\t is_delay: %d \n\n'
-            % (user_config.rateOfRandomExams, user_config.rateOfCleanExams, user_config.minAmountOfWorklistExams, user_config.maxAmountOfWorklistExams, user_config.seed_Number, user_config.likelihood_of_long_string, user_config.likelihood_of_empty_string, user_config.likelihood_of_None_string, user_config.likelihood_of_delay, user_config.oversized_strings_enabled, user_config.empty_strings_enabled, user_config.none_strings_enabled , user_config.delay_enabled))
-
-
-    def log_seed (self, seed):
-        with open("logfile.txt", "a+") as f:
-            f.write('%s\tSeed: %d\n' % (time.asctime(time.localtime()), seed))
+        if self._reproduce:
+            with open(self._seedfile, "r") as f:
+                seed = int(f.read())
+        else:
+            seed = random.randrange(1, 1000000)
+            with open(self._seedfile, "w") as f:
+                f.write(str(seed))
+        return seed
 
     def start(self):
         """ Start the server and listen to specified address and port """
@@ -54,7 +49,6 @@ class WorklistServer:
             self._config.network_address.port)
         )
 
-        self.setup_log_seed()
 
         self._server = ae.start_server(
             self._config.network_address,
@@ -70,7 +64,6 @@ class WorklistServer:
         """ Event handler for C-FIND requests """
         seed = self.get_seedNumber()
         random.seed(seed)
-        self.log_seed(seed)
 
         totalExams = random.randrange(self._config_values.minAmountOfWorklistExams, self._config_values.maxAmountOfWorklistExams)
 
