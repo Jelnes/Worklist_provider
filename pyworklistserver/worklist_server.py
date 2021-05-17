@@ -15,9 +15,13 @@ class WorklistServer:
     implementation class is responsible for network communication with
     the client. """
 
+<<<<<<< HEAD
     def __init__(self, serverConfig, app_logger, seedfile, reproduce, blocking):
+=======
+    def __init__(self, serverConfig, app_logger, inserted_config, blocking):
+>>>>>>> 76a562a (Added command-line argument for path to json-file with configurable values to allow command-line control over the server-output.)
         self._config = serverConfig
-        self._config_provider = get_config.ConfigProvider()
+        self._config_provider = get_config.ConfigProvider(inserted_config)
         self._config_values = self._config_provider.defaultConfig
         self._logger = app_logger
         self._blocking = blocking
@@ -29,6 +33,7 @@ class WorklistServer:
         ]
         self._server = None
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     def get_seedNumber(self):
         """Return Function for seed-value"""
@@ -43,6 +48,10 @@ class WorklistServer:
 
 =======
 >>>>>>> 335d443 (Put content in user-config.py in dictionary, and updated use througout project. Purpose: Cleaner code and opening the possibility to merge with config-input from command-line.)
+=======
+        self._logger.info(self._config_values)
+
+>>>>>>> 76a562a (Added command-line argument for path to json-file with configurable values to allow command-line control over the server-output.)
     def start(self):
         """ Start the server and listen to specified address and port """
         ae = AE(self._config.ae_title)

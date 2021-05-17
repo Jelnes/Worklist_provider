@@ -40,7 +40,11 @@ class WorklistServerTests(unittest.TestCase):
         network_address = server_config.NetworkAddress('127.0.0.1', 104)
         test_logger = _setup_logger_for_test()
         self._server_config = server_config.ServerConfig(network_address=network_address, ae_title='WorklistServerTests', verbose=True)
+<<<<<<< HEAD
         self._server = worklist_server.WorklistServer(self._server_config, test_logger, "seed.txt", False, blocking=False)
+=======
+        self._server = worklist_server.WorklistServer(self._server_config, test_logger, dict(), blocking=False)
+>>>>>>> 76a562a (Added command-line argument for path to json-file with configurable values to allow command-line control over the server-output.)
         self._server.start()
 
     def tearDown(self):

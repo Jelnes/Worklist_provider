@@ -5,10 +5,14 @@ and keyboard interrupts """
 
 import argparse
 import signal
+import string
 import time
 import logging
 import logging.handlers
+import json
+import os
 from pyworklistserver import server_config
+from pyworklistserver import user_config
 from pyworklistserver import worklist_server
 
 def _configure_logger(filename, pynetdicom_verbosity: int):
@@ -36,6 +40,18 @@ def _configure_logger(filename, pynetdicom_verbosity: int):
         app_logger.addHandler(fileHandler)
         pynd_logger.addHandler(fileHandler)
     return app_logger
+
+def _get_userconfig_from_commandline(file, logger):
+    inputDictionary = {}
+
+    try:
+        with open(file, 'r') as json_file:
+            inputDictionary = json.load(json_file)
+            return inputDictionary
+    except Exception as e:
+        with open(file, 'w') as outfile:
+            json.dump(user_config.default_config, outfile, separators=(",\n", ": "))
+            return user_config.default_config
 
 def _get_serverconfig_from_commandline():
     parser = argparse.ArgumentParser(description='Launch dicom worklist server')
@@ -81,9 +97,15 @@ def _get_serverconfig_from_commandline():
         help='Reproduction with last seed.'
     )
 
+    parser.add_argument(
+        '--userconfig',
+        default='./configvalues.json',
+        help='J-son file with configurable values. See user-config.py for available keys.'
+    )
+
     args = parser.parse_args()
     network_address = server_config.NetworkAddress(args.ip, args.port)
-    return (server_config.ServerConfig(network_address, args.aetitle, args.verbose), args.logfile, args.seedfile, args.reproduce)
+    return (server_config.ServerConfig(network_address, args.aetitle, args.verbose), args.logfile, args.seedfile, args.reproduce, args.userconfig)
 
 class PyDicomServer:
     """ Wrapper server implementation that supports stopping through Ctrl+C.
@@ -91,10 +113,10 @@ class PyDicomServer:
     This is just delegating to the core Worklist server implementation
     """
 
-    def __init__(self, config, app_logger, seedfile, reproduce):
+    def __init__(self, config, app_logger, seedfile, reproduce, inserted_config):
         self._running = True
         self._logger = app_logger
-        self._server = worklist_server.WorklistServer(config, app_logger, seedfile, reproduce, blocking=False)
+        self._server = worklist_server.WorklistServer(config, app_logger, seedfile, reproduce, inserted_config, blocking=False)
         signal.signal(signal.SIGINT, self._handle_signal)
 
     def run_until_stopped(self):
@@ -111,8 +133,9 @@ class PyDicomServer:
 
 
 if __name__ == '__main__':
-    server_config, logfile, seedfile, reproduce = _get_serverconfig_from_commandline()
+    server_config, logfile, seedfile, reproduce, configfile = _get_serverconfig_from_commandline()
     logger = _configure_logger(logfile, logging.DEBUG if server_config.verbose else logging.WARN)
+    inserted_config = _get_userconfig_from_commandline(configfile, logger)
 
-    server = PyDicomServer(server_config, logger, seedfile, reproduce)
+    server = PyDicomServer(server_config, logger, seedfile, reproduce, inserted_config)
     server.run_until_stopped()
