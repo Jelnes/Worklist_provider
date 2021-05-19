@@ -15,11 +15,7 @@ class WorklistServer:
     implementation class is responsible for network communication with
     the client. """
 
-<<<<<<< HEAD
-    def __init__(self, serverConfig, app_logger, seedfile, reproduce, blocking):
-=======
-    def __init__(self, serverConfig, app_logger, inserted_config, blocking):
->>>>>>> 76a562a (Added command-line argument for path to json-file with configurable values to allow command-line control over the server-output.)
+    def __init__(self, serverConfig, app_logger, seedfile, reproduce, inserted_config, blocking):
         self._config = serverConfig
         self._config_provider = get_config.ConfigProvider(inserted_config)
         self._config_values = self._config_provider.defaultConfig
@@ -33,8 +29,6 @@ class WorklistServer:
         ]
         self._server = None
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     def get_seedNumber(self):
         """Return Function for seed-value"""
         if self._reproduce:
@@ -46,12 +40,6 @@ class WorklistServer:
                 f.write(str(seed))
         return seed
 
-=======
->>>>>>> 335d443 (Put content in user-config.py in dictionary, and updated use througout project. Purpose: Cleaner code and opening the possibility to merge with config-input from command-line.)
-=======
-        self._logger.info(self._config_values)
-
->>>>>>> 76a562a (Added command-line argument for path to json-file with configurable values to allow command-line control over the server-output.)
     def start(self):
         """ Start the server and listen to specified address and port """
         ae = AE(self._config.ae_title)
@@ -62,10 +50,6 @@ class WorklistServer:
             self._config.network_address.port)
         )
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 335d443 (Put content in user-config.py in dictionary, and updated use througout project. Purpose: Cleaner code and opening the possibility to merge with config-input from command-line.)
         self._server = ae.start_server(
             self._config.network_address,
             evt_handlers=self._handlers,
@@ -78,7 +62,7 @@ class WorklistServer:
 
     def _on_find(self, event, app_logger):
         """ Event handler for C-FIND requests """
-        seed = random.randrange(1, 1000000)
+        seed = self.get_seedNumber()
         random.seed(seed)
 
         totalExams = random.randrange(self._config_values["minAmountOfWorklistExams"], self._config_values["maxAmountOfWorklistExams"])

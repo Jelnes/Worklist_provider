@@ -40,11 +40,7 @@ class WorklistServerTests(unittest.TestCase):
         network_address = server_config.NetworkAddress('127.0.0.1', 104)
         test_logger = _setup_logger_for_test()
         self._server_config = server_config.ServerConfig(network_address=network_address, ae_title='WorklistServerTests', verbose=True)
-<<<<<<< HEAD
-        self._server = worklist_server.WorklistServer(self._server_config, test_logger, "seed.txt", False, blocking=False)
-=======
-        self._server = worklist_server.WorklistServer(self._server_config, test_logger, dict(), blocking=False)
->>>>>>> 76a562a (Added command-line argument for path to json-file with configurable values to allow command-line control over the server-output.)
+        self._server = worklist_server.WorklistServer(self._server_config, test_logger, "seed.txt", False, dict(), blocking=False)
         self._server.start()
 
     def tearDown(self):
@@ -246,7 +242,6 @@ class WorklistServerTests(unittest.TestCase):
             self.assertEqual(worklist_item_one.ScheduledProcedureStepSequence[i].ScheduledProcedureStepDescription, worklist_item_two.ScheduledProcedureStepSequence[i].ScheduledProcedureStepDescription)
             self.assertEqual(worklist_item_one.ScheduledProcedureStepSequence[i].CommentsOnTheScheduledProcedureStep, worklist_item_two.ScheduledProcedureStepSequence[i].CommentsOnTheScheduledProcedureStep)
 
-<<<<<<< HEAD
     def test_RequireThat_Seedfile_UpdatesWhen_ReproduceFalse(self):
         client = worklist_client.WorklistClient(self._server_config.network_address)
 
@@ -280,9 +275,6 @@ class WorklistServerTests(unittest.TestCase):
         worklist_two = client.get_worklist(query_dataset)
         with open("seed.txt", "r") as f:
             seed2 = f.read()
-=======
-
->>>>>>> 335d443 (Put content in user-config.py in dictionary, and updated use througout project. Purpose: Cleaner code and opening the possibility to merge with config-input from command-line.)
 
         self.assertTrue(seed1 == seed2)
 
