@@ -3,9 +3,9 @@ build/
 dist/
 *.egg-info/
 
-pyworklistserver/
 __pycache__/
 *.pyc
+
 
 
 
