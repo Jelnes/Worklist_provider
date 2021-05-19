@@ -98,14 +98,14 @@ def _get_serverconfig_from_commandline():
     )
 
     parser.add_argument(
-        '--worklistconfig',
-        default='worklistconfig.json',
+        '--worklistconfigfile',
+        default='worklistconfigfile.json',
         help='J-son file with configurable values. See user-config.py for available keys.'
     )
 
     args = parser.parse_args()
     network_address = server_config.NetworkAddress(args.ip, args.port)
-    return (server_config.ServerConfig(network_address, args.aetitle, args.verbose), args.logfile, args.seedfile, args.reproduce, args.worklistconfig)
+    return (server_config.ServerConfig(network_address, args.aetitle, args.verbose), args.logfile, args.seedfile, args.reproduce, args.worklistconfigfile)
 
 class PyDicomServer:
     """ Wrapper server implementation that supports stopping through Ctrl+C.
@@ -133,9 +133,9 @@ class PyDicomServer:
 
 
 if __name__ == '__main__':
-    server_config, logfile, seedfile, reproduce, worklist_config = _get_serverconfig_from_commandline()
+    server_config, logfile, seedfile, reproduce, worklist_config_file = _get_serverconfig_from_commandline()
     logger = _configure_logger(logfile, logging.DEBUG if server_config.verbose else logging.WARN)
-    worklist_config = _get_userconfig_from_commandline(worklist_config)
+    worklist_config = _get_userconfig_from_commandline(worklist_config_file)
 
     server = PyDicomServer(server_config, logger, seedfile, reproduce, worklist_config)
     server.run_until_stopped()
