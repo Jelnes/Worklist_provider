@@ -7,7 +7,6 @@ from pynetdicom import evt
 from pynetdicom.sop_class import ModalityWorklistInformationFind
 
 from pyworklistserver import worklist
-from pyworklistserver import user_config
 from pyworklistserver import get_config
 
 class WorklistServer:
@@ -15,15 +14,15 @@ class WorklistServer:
     implementation class is responsible for network communication with
     the client. """
 
-    def __init__(self, serverConfig, app_logger, seedfile, reproduce, inserted_config, blocking):
-        self._config = serverConfig
-        self._config_provider = get_config.ConfigProvider(inserted_config)
-        self._config_values = self._config_provider.defaultConfig
+    def __init__(self, serverConfig, app_logger, seedfile, reproduce, worklist_config, blocking):
+        self._server_config = serverConfig
+        self._worklist_config_provider = get_config.ConfigProvider(worklist_config)
+        self._worklist_values = self._worklist_config_provider.defaultConfig
         self._logger = app_logger
         self._blocking = blocking
         self._seedfile = seedfile
         self._reproduce = reproduce
-        self._worklist_factory = worklist.RandomWorklist('ISO_IR 100', self._config_values)
+        self._worklist_factory = worklist.RandomWorklist('ISO_IR 100', self._worklist_values)
         self._handlers = [
             (evt.EVT_C_FIND, self._on_find, [app_logger]),
         ]
@@ -42,16 +41,16 @@ class WorklistServer:
 
     def start(self):
         """ Start the server and listen to specified address and port """
-        ae = AE(self._config.ae_title)
+        ae = AE(self._server_config.ae_title)
         ae.add_supported_context(ModalityWorklistInformationFind)
         self._logger.info('Running worklist server with AE title {}, ip: {}, listening to port: {}'.format(
-            self._config.ae_title,
-            self._config.network_address.address,
-            self._config.network_address.port)
+            self._server_config.ae_title,
+            self._server_config.network_address.address,
+            self._server_config.network_address.port)
         )
 
         self._server = ae.start_server(
-            self._config.network_address,
+            self._server_config.network_address,
             evt_handlers=self._handlers,
             block=self._blocking)
 
@@ -65,11 +64,11 @@ class WorklistServer:
         seed = self.get_seedNumber()
         random.seed(seed)
 
-        totalExams = random.randrange(self._config_values["minAmountOfWorklistExams"], self._config_values["maxAmountOfWorklistExams"])
+        totalExams = random.randrange(self._worklist_values["minAmountOfWorklistExams"], self._worklist_values["maxAmountOfWorklistExams"])
 
         for i in range (totalExams):
             r = random.uniform(0, 1)
-            if r <= self._config_values["rateOfCleanExams"]:
+            if r <= self._worklist_values["rateOfCleanExams"]:
                 worklist = self._worklist_factory.get_clean_worklist()
             else:
                 worklist = self._worklist_factory.get_random_worklist()

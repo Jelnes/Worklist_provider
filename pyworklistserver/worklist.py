@@ -6,7 +6,7 @@ import string
 from pydicom.uid import generate_uid
 from pydicom.dataset import Dataset
 from pyworklistserver import fault_provider
-from pyworklistserver import user_config
+from pyworklistserver import default_config
 
 __NONASCII = 'æÆøØåÅßäöüÄÖÜ'  # just an arbitrarily selected list of non ascii characters
 
@@ -22,17 +22,17 @@ __KOREAN = 'ㄱㄴㄷㄹㅇㅈㅑㅓㅕㅗㅛㅔㅖㅚㅿㆆㆍ'  # An excempt o
 
 def _get_random_language_string():
     r = random.uniform(0.0, 100.0)
-    if (r <= user_config.default_config["likelihoodOfLanguage"]):
+    if (r <= default_config.default_config["likelihoodOfLanguage"]):
         r = random.uniform(0.0, 100.0)
-        if (r < 20) and (user_config.default_config["chineseEnabled"]):  # CHINESE
+        if (r < 20) and (default_config.default_config["chineseEnabled"]):  # CHINESE
             return __CHINESE
-        elif (20 <= r < 40) and (user_config.default_config["russianEnabled"]):  # RUSSIAN
+        elif (20 <= r < 40) and (default_config.default_config["russianEnabled"]):  # RUSSIAN
             return __RUSSIAN
-        elif (40 <= r < 60) and (user_config.default_config["greekEnabled"]):  # GREEK
+        elif (40 <= r < 60) and (default_config.default_config["greekEnabled"]):  # GREEK
             return __GREEK
-        elif (60 <= r < 80) and (user_config.default_config["japaneseEnabled"]):  # JAPANESE
+        elif (60 <= r < 80) and (default_config.default_config["japaneseEnabled"]):  # JAPANESE
             return __JAPANESE
-        elif (80 <= r) and (user_config.default_config["koreanEnabled"]):  # KOREAN
+        elif (80 <= r) and (default_config.default_config["koreanEnabled"]):  # KOREAN
             return __KOREAN
     return __NONASCII
 
@@ -83,10 +83,10 @@ _VIVID_HACK_MAX_PERSON_NAME = 64
 
 class RandomWorklist:
     """ Generator for random worklists """
-    def __init__(self, specificCharSet, config_values):
+    def __init__(self, specificCharSet, worklist_values):
         self._specific_charset = specificCharSet
-        self._config_values = config_values
-        self._fault_provider = fault_provider.FaultProvider(config_values)
+        self._worklist_values = worklist_values
+        self._fault_provider = fault_provider.FaultProvider(worklist_values)
 
 
     def get_random_worklist(self):
