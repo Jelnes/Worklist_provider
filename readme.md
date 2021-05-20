@@ -8,7 +8,7 @@ Functionality:
 * Configfile to manage functionality 
 * Too long string
 * Easy manageble data
-* Variable character set(This feature is sanitised by pydicom #18)
+* Variable character set(This feature is sanitised by pydicom (issue #18))
 * NULL and Empty strings
 * Delay
 
