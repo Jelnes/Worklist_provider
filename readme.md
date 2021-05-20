@@ -2,6 +2,14 @@ Name: pyworklistserver
 Description: Lightweight DICOM worklist server command line utility
 Intended use: Act as worklist server for HAST 
 Dependencies: see requirements.txt
+Functionality: 
+    * Reproduce with seed
+    * Configfile to manage functionality 
+    * Too long string
+    * Easy manageble data
+    * Variable character set
+    * NULL and Empty strings
+    * Delay
 
 Install from source:
     py -3 -m pip install --no-index --find-links=%LOCALPYTHONPACKAGECACHE% .
@@ -11,3 +19,6 @@ Install from wheel:
 
 Run:
     py -3 -m pyworklistserver
+    
+For more info about optional arguments:
+    use --help as argument when running the program.
