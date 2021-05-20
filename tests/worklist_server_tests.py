@@ -49,13 +49,27 @@ class WorklistServerTests(unittest.TestCase):
     def test_RequireThat_WorklistRequest_ReturnsNonEmptyWorklist_WhenQueryingAllPatients(self):
         client = worklist_client.WorklistClient(self._server_config.network_address)
 
+        self._server._worklist_config_provider.reset()
+        self._server._worklist_values["emptyStringsEnabled"] = False
+        self._server._worklist_values["noneStringsEnabled"] = False
+        self._server._worklist_values["delayEnabled"] = False
+        self._server._worklist_values["likelihoodOfLanguage"] = 0
+
         query_dataset = Dataset()
         query_dataset.PatientName = '*'
         worklist = client.get_worklist(query_dataset)
         self.assertTrue(len(worklist) > 0)
 
+        self._server._worklist_config_provider.reset()
+
     def test_RequireThat_WorklistRequest_ReturnsWorklistWithAllExpectedFieldsPopulated(self):
         client = worklist_client.WorklistClient(self._server_config.network_address)
+
+        self._server._worklist_config_provider.reset()
+        self._server._worklist_values["emptyStringsEnabled"] = False
+        self._server._worklist_values["noneStringsEnabled"] = False
+        self._server._worklist_values["delayEnabled"] = False
+        self._server._worklist_values["likelihoodOfLanguage"] = 0
 
         query_dataset = Dataset()
         query_dataset.PatientName = '*'
@@ -90,17 +104,27 @@ class WorklistServerTests(unittest.TestCase):
             self.assertTrue(len(otherPatientId.IssuerOfPatientID) > 0)
             self.assertEqual(otherPatientId.TypeOfPatientID, 'TEXT')
 
+        self._server._worklist_config_provider.reset()
+
 
     def test_RequireThat_WorklistRequest_ReturnsWorklistSize_BetweenMinMax(self):
         client = worklist_client.WorklistClient(self._server_config.network_address)
+
+        self._server._worklist_config_provider.reset()
+        self._server._worklist_values["delayEnabled"] = False
 
         query_dataset = Dataset()
         query_dataset.PatientName = '*'
         worklist = client.get_worklist(query_dataset)
         self.assertTrue(len(worklist) >= default_config.default_config["minAmountOfWorklistExams"] and len(worklist) <= default_config.default_config["maxAmountOfWorklistExams"])
 
+        self._server._worklist_config_provider.reset()
+
     def test_RequireThat_MulipleWorklistRequests_ReturnsWorklistWithSameLength_ByUseOfSeed(self):
         client = worklist_client.WorklistClient(self._server_config.network_address)
+
+        self._server._worklist_config_provider.reset()
+        self._server._worklist_values["delayEnabled"] = False
 
         query_dataset = Dataset()
         query_dataset.PatientName = '*'
@@ -117,6 +141,7 @@ class WorklistServerTests(unittest.TestCase):
 
     def test_RequireThat_WorklistRequest_ReturnsCleanWorklist_WhenSet(self):
         self._server._worklist_config_provider.reset()
+        self._server._worklist_values["delayEnabled"] = False
         self._server._worklist_values["rateOfCleanExams"] = 1
 
         client = worklist_client.WorklistClient(self._server_config.network_address)
@@ -131,6 +156,7 @@ class WorklistServerTests(unittest.TestCase):
         self.assertEqual((worklist_item.PatientName), 'Clean^Exam')
 
         self._server._worklist_config_provider.reset()
+        self._server._worklist_values["delayEnabled"] = False
         self._server._worklist_values["rateOfCleanExams"] = 0
 
         worklist = client.get_worklist(query_dataset)
@@ -142,6 +168,7 @@ class WorklistServerTests(unittest.TestCase):
     def test_RequireThat_WorklistRequest_ReturnsLongStrings_WhenSet(self):
         self._server._worklist_config_provider.reset()
         self._server._worklist_values["rateOfCleanExams"] = 0
+        self._server._worklist_values["delayEnabled"] = False
 
         self._server._worklist_values["oversizedStringsEnabled"] = True
         self._server._worklist_values["emptyStringsEnabled"] = False
@@ -171,6 +198,7 @@ class WorklistServerTests(unittest.TestCase):
     def test_RequireThat_WorklistRequest_ReturnsEmptyStrings_WhenSet(self):
         self._server._worklist_config_provider.reset()
         self._server._worklist_values["rateOfCleanExams"] = 0
+        self._server._worklist_values["delayEnabled"] = False
 
         self._server._worklist_values["oversizedStringsEnabled"] = False
         self._server._worklist_values["EmptyStringsEnabled"] = True
@@ -195,6 +223,8 @@ class WorklistServerTests(unittest.TestCase):
     def test_RequireThat_MultipleWorklistRequests_ReturnsIdenticalWorklists_ByUseOfSeed(self):
         client = worklist_client.WorklistClient(self._server_config.network_address)
 
+        self._server._worklist_config_provider.reset()
+        self._server._worklist_values["delayEnabled"] = False
         query_dataset = Dataset()
         query_dataset.PatientName = '*'
 
@@ -242,8 +272,13 @@ class WorklistServerTests(unittest.TestCase):
             self.assertEqual(worklist_item_one.ScheduledProcedureStepSequence[i].ScheduledProcedureStepDescription, worklist_item_two.ScheduledProcedureStepSequence[i].ScheduledProcedureStepDescription)
             self.assertEqual(worklist_item_one.ScheduledProcedureStepSequence[i].CommentsOnTheScheduledProcedureStep, worklist_item_two.ScheduledProcedureStepSequence[i].CommentsOnTheScheduledProcedureStep)
 
+            self._server._worklist_config_provider.reset()
+
     def test_RequireThat_Seedfile_UpdatesWhen_ReproduceFalse(self):
         client = worklist_client.WorklistClient(self._server_config.network_address)
+
+        self._server._worklist_config_provider.reset()
+        self._server._worklist_values["delayEnabled"] = False
 
         query_dataset = Dataset()
         query_dataset.PatientName = '*'
@@ -260,8 +295,13 @@ class WorklistServerTests(unittest.TestCase):
 
         self.assertTrue(seed1 != seed2)
 
+        self._server._worklist_config_provider.reset()
+
     def test_RequireThat_Seedfile_IsSameWhen_ReproduceTrue(self):
         client = worklist_client.WorklistClient(self._server_config.network_address)
+
+        self._server._worklist_config_provider.reset()
+        self._server._worklist_values["delayEnabled"] = False
 
         query_dataset = Dataset()
         query_dataset.PatientName = '*'
@@ -277,6 +317,8 @@ class WorklistServerTests(unittest.TestCase):
             seed2 = f.read()
 
         self.assertTrue(seed1 == seed2)
+
+        self._server._worklist_config_provider.reset()
 
 if __name__ == '__main__':
     _setup_logger_for_test()
