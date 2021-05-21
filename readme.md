@@ -1,7 +1,7 @@
-Name: pyworklistserver
-Description: Lightweight DICOM worklist server command line utility
-Intended use: Act as worklist server for HAST 
-Dependencies: see requirements.txt
+Name: pyworklistserver      
+Description: Lightweight DICOM worklist server command line utility     
+Intended use: Act as worklist server for HAST       
+Dependencies: see requirements.txt      
 
 Functionality:
 * Reproduce with seed
