@@ -172,6 +172,7 @@ class WorklistServerTests(unittest.TestCase):
 
         self._server._worklist_values["oversizedStringsEnabled"] = True
         self._server._worklist_values["emptyStringsEnabled"] = False
+        self._server._worklist_values["noneStringsEnabled"] = False
 
         self._server._worklist_values["likelihoodOfLongString"] = 100.0
 
