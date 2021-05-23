@@ -16,9 +16,9 @@ default_config = {
   "emptyStringsEnabled":        True,
   "noneStringsEnabled":         True,
   "delayEnabled":               True,
-  "chineseEnabled":             False,
+  "chineseEnabled":             True,
   "russianEnabled":             True,
-  "greekEnabled":               False,
-  "japaneseEnabled":            False,
-  "koreanEnabled":              False
+  "greekEnabled":               True,
+  "japaneseEnabled":            True,
+  "koreanEnabled":              True
 }
