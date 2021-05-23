@@ -9,16 +9,16 @@ default_config = {
   "likelihoodOfNoneString":     1.0,        #likelihood of returning None instead of string. In percentage
   "likelihoodOfDelay":          2.0,        #likelihood of a delay per exam. in percent 
   "delayTime":                  5,          #Seconds of delay when delay is called 
-  "likelihoodOfLanguage":       0,          #likelihood of using one of the unsupported languages, per line in exam, in percentage
+  "likelihoodOfLanguage":       100,          #likelihood of using one of the unsupported languages, per line in exam, in percentage
 
   #Enablers / Disablers of the fault_provider:
   "oversizedStringsEnabled":    True,             
   "emptyStringsEnabled":        True,
   "noneStringsEnabled":         True,
   "delayEnabled":               True,
-  "chineseEnabled":             True,
+  "chineseEnabled":             False,
   "russianEnabled":             True,
-  "greekEnabled":               True,
-  "japaneseEnabled":            True,
-  "koreanEnabled":              True
+  "greekEnabled":               False,
+  "japaneseEnabled":            False,
+  "koreanEnabled":              False
 }

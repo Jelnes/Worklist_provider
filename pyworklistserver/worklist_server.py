@@ -22,7 +22,7 @@ class WorklistServer:
         self._blocking = blocking
         self._seedfile = seedfile
         self._reproduce = reproduce
-        self._worklist_factory = worklist.RandomWorklist('ISO_IR 100', self._worklist_values)
+        self._worklist_factory = worklist.RandomWorklist(self._worklist_values)
         self._handlers = [
             (evt.EVT_C_FIND, self._on_find, [app_logger]),
         ]

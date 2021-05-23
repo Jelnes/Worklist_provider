@@ -83,8 +83,7 @@ _VIVID_HACK_MAX_PERSON_NAME = 64
 
 class RandomWorklist:
     """ Generator for random worklists """
-    def __init__(self, specificCharSet, worklist_values):
-        self._specific_charset = specificCharSet
+    def __init__(self, worklist_values):
         self._worklist_values = worklist_values
         self._fault_provider = fault_provider.FaultProvider(worklist_values)
 
@@ -95,7 +94,7 @@ class RandomWorklist:
         worklist_item = Dataset()
         worklist_item.StudyInstanceUID = generate_uid(prefix='1.2.840.113619.2.391.6789.', entropy_srcs=[_random_unicode_string(10, _get_random_language_string()), _random_unicode_string(10, _get_random_language_string())])
         worklist_item.Modality = 'US'
-        worklist_item.SpecificCharacterSet = self._specific_charset
+        worklist_item.SpecificCharacterSet = ['ISO_IR 100', 'ISO_IR 144', 'UTF8', 'ISO_IR 126', 'ISO_IR 13', 'ISO 2022 IR 149']
         worklist_item.CurrentPatientLocation = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string)
         worklist_item.AccessionNumber = _random_unicode_string(16, _get_random_language_string())
         worklist_item.PatientBirthDate = _random_dicom_date_after_1900()
@@ -136,7 +135,7 @@ class RandomWorklist:
         worklist_item = Dataset()
         worklist_item.StudyInstanceUID = generate_uid(prefix='1.2.840.113619.2.391.6789.', entropy_srcs=[_create_random_ascii_string(10), _create_random_ascii_string(10)])
         worklist_item.Modality = 'US'
-        worklist_item.SpecificCharacterSet = self._specific_charset
+        worklist_item.SpecificCharacterSet = 'ISO_IR 100'
         worklist_item.AccessionNumber = '123'
         worklist_item.PatientBirthDate = '19901015'
         worklist_item.PatientName = 'Clean^Exam'
