@@ -321,6 +321,31 @@ class WorklistServerTests(unittest.TestCase):
 
         self._server._worklist_config_provider.reset()
 
+    def test_RequireThat_Foreign_Characters_inString_WhenSet(self):
+        ifTrue = False
+        foreignChars = "ДРЛИПЦЗГБЖ也池馳弛水马弓土人女ДРЛИПЦЗГБЖΑαΒβΓγΔδΕεΖζΗηΘθΙιψΩω日一大二目五後.女かたまやたばㄱㄴㄷㄹㅇㅈㅑㅓㅕㅗㅛㅔㅖㅚㅿㆆㆍ"
+        
+        client = worklist_client.WorklistClient(self._server_config.network_address)
+
+        self._server._worklist_config_provider.reset()
+        self._server._worklist_values["likelihoodOfLanguage"] = 100
+        self._server._worklist_values["emptyStringsEnabled"] = False
+        self._server._worklist_values["noneStringsEnabled"] = False
+        self._server._worklist_values["delayEnabled"] = False
+
+        query_dataset = Dataset()
+        query_dataset.PatientName = '*'
+
+        worklist = client.get_worklist(query_dataset)
+
+        for worklist_item in worklist:
+            if any(x in foreignChars for x in worklist_item.ScheduledProcedureStepSequence[0].CommentsOnTheScheduledProcedureStep):
+                ifTrue = True
+                break
+
+        self.assertEqual(True, ifTrue)
+
+
 if __name__ == '__main__':
     _setup_logger_for_test()
     unittest.main()

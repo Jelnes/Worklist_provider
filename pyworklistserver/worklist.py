@@ -8,33 +8,6 @@ from pydicom.dataset import Dataset
 from pyworklistserver import fault_provider
 from pyworklistserver import default_config
 
-__NONASCII = 'æÆøØåÅßäöüÄÖÜ'  # just an arbitrarily selected list of non ascii characters
-
-__CHINESE = '也池馳弛水马弓土人女'  # An excempt of chinese characters
-
-__RUSSIAN = 'ДРЛИПЦЗГБЖ'  # An excempt of russian characters
-
-__GREEK = 'ΑαΒβΓγΔδΕεΖζΗηΘθΙιψΩω'  # An excempt of Greek characters
-
-__JAPANESE = '日一大二目五後.女かたまやたば'  # An excempt of Japanese characters (Kanji, Hiragana and Katakana)
-
-__KOREAN = 'ㄱㄴㄷㄹㅇㅈㅑㅓㅕㅗㅛㅔㅖㅚㅿㆆㆍ'  # An excempt of Korean characters (Hangul)
-
-def _get_random_language_string():
-    r = random.uniform(0.0, 100.0)
-    if (r <= default_config.default_config["likelihoodOfLanguage"]):
-        r = random.uniform(0.0, 100.0)
-        if (r < 20) and (default_config.default_config["chineseEnabled"]):  # CHINESE
-            return __CHINESE
-        elif (20 <= r < 40) and (default_config.default_config["russianEnabled"]):  # RUSSIAN
-            return __RUSSIAN
-        elif (40 <= r < 60) and (default_config.default_config["greekEnabled"]):  # GREEK
-            return __GREEK
-        elif (60 <= r < 80) and (default_config.default_config["japaneseEnabled"]):  # JAPANESE
-            return __JAPANESE
-        elif (80 <= r) and (default_config.default_config["koreanEnabled"]):  # KOREAN
-            return __KOREAN
-    return __NONASCII
 
 def _random_unicode_string(length, language_string):
     """ Create a random string of specified length containing non-ascii, or characters from unsupported languages """
@@ -45,17 +18,17 @@ def _create_random_ascii_string(length):
     return ''.join(random.choices(' ' + string.ascii_uppercase + string.ascii_lowercase + string.digits, k=length))
 
 
-def _extend_with_random_to_length(text, length, _None_string_func):
+def _extend_with_random_to_length(text, length, _None_string_func, language_func):
     """ Extend a string with random characters up to the given length """
     if _None_string_func():
         return None
     if length == 0:
         return ''
-    return text + _random_unicode_string(length - len(text), _get_random_language_string())
+    return text + _random_unicode_string(length - len(text), language_func())
 
-def _random_person_name(max_len_per_name):
+def _random_person_name(max_len_per_name, language_func):
     """ Create a random person name separated by ^ character """
-    return '^'.join([_random_unicode_string(max_len_per_name, _get_random_language_string()) for _ in range(1, random.randrange(2, 4))])
+    return '^'.join([_random_unicode_string(max_len_per_name, language_func()) for _ in range(1, random.randrange(2, 4))])
 
 def _random_number_string(max_len):
     """ Create a random string containing numeric values only """
@@ -83,8 +56,7 @@ _VIVID_HACK_MAX_PERSON_NAME = 64
 
 class RandomWorklist:
     """ Generator for random worklists """
-    def __init__(self, specificCharSet, worklist_values):
-        self._specific_charset = specificCharSet
+    def __init__(self, worklist_values):
         self._worklist_values = worklist_values
         self._fault_provider = fault_provider.FaultProvider(worklist_values)
 
@@ -93,29 +65,29 @@ class RandomWorklist:
         """ Generate a random worklist """
 
         worklist_item = Dataset()
-        worklist_item.StudyInstanceUID = generate_uid(prefix='1.2.840.113619.2.391.6789.', entropy_srcs=[_random_unicode_string(10, _get_random_language_string()), _random_unicode_string(10, _get_random_language_string())])
+        worklist_item.StudyInstanceUID = generate_uid(prefix='1.2.840.113619.2.391.6789.', entropy_srcs=[_random_unicode_string(10, self._fault_provider._get_random_language_string()), _random_unicode_string(10, self._fault_provider._get_random_language_string())])
         worklist_item.Modality = 'US'
-        worklist_item.SpecificCharacterSet = self._specific_charset
-        worklist_item.CurrentPatientLocation = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string)
-        worklist_item.AccessionNumber = _random_unicode_string(16, _get_random_language_string())
+        worklist_item.SpecificCharacterSet = ['ISO_IR 100', 'ISO_IR 144', 'UTF8', 'ISO_IR 126', 'ISO_IR 13', 'ISO 2022 IR 149']
+        worklist_item.CurrentPatientLocation = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string, self._fault_provider._get_random_language_string)
+        worklist_item.AccessionNumber = _random_unicode_string(16, self._fault_provider._get_random_language_string())
         worklist_item.PatientBirthDate = _random_dicom_date_after_1900()
         worklist_item.PatientName = self._get_person_name()
-        worklist_item.PatientID = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string)
+        worklist_item.PatientID = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string, self._fault_provider._get_random_language_string)
 
         self._fault_provider._sleep_random() #Possible delay
 
-        worklist_item.IssuerOfPatientID = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string)
+        worklist_item.IssuerOfPatientID = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string, self._fault_provider._get_random_language_string)
         worklist_item.PatientWeight = str(random.uniform(10.0, 150.0))[:16]
         worklist_item.PatientSize = str(random.uniform(1.0, 2.5))[:16]
-        worklist_item.AdmissionID = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string)
-        worklist_item.RequestedProcedureID = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(16), self._fault_provider._return_None_string)
-        worklist_item.RequestedProcedureDescription = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string)
+        worklist_item.AdmissionID = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string, self._fault_provider._get_random_language_string)
+        worklist_item.RequestedProcedureID = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(16), self._fault_provider._return_None_string, self._fault_provider._get_random_language_string)
+        worklist_item.RequestedProcedureDescription = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string, self._fault_provider._get_random_language_string)
         worklist_item.ReferringPhysicianName = self._get_person_name()
 
         otherPatientIdsSq = [Dataset(), Dataset()]
         for otherPatientId in otherPatientIdsSq:
-            otherPatientId.PatientID = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string)
-            otherPatientId.IssuerOfPatientID = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string)
+            otherPatientId.PatientID = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string, self._fault_provider._get_random_language_string)
+            otherPatientId.IssuerOfPatientID = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string, self._fault_provider._get_random_language_string)
             otherPatientId.TypeOfPatientID = 'TEXT'
 
         worklist_item.OtherPatientIDsSequence = otherPatientIdsSq
@@ -124,8 +96,8 @@ class RandomWorklist:
         step.ScheduledPerformingPhysicianName = self._get_person_name()
         step.ScheduledProcedureStepStartDate = _random_dicom_date_after_1900()
         step.ScheduledProcedureStepStartTime = _random_dicom_time()
-        step.ScheduledProcedureStepDescription = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string)
-        step.CommentsOnTheScheduledProcedureStep = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(10240), self._fault_provider._return_None_string)
+        step.ScheduledProcedureStepDescription = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(64), self._fault_provider._return_None_string, self._fault_provider._get_random_language_string)
+        step.CommentsOnTheScheduledProcedureStep = _extend_with_random_to_length('', self._fault_provider. _get_random_string_length(10240), self._fault_provider._return_None_string, self._fault_provider._get_random_language_string)
         worklist_item.ScheduledProcedureStepSequence = [step]
 
         return worklist_item
@@ -136,7 +108,7 @@ class RandomWorklist:
         worklist_item = Dataset()
         worklist_item.StudyInstanceUID = generate_uid(prefix='1.2.840.113619.2.391.6789.', entropy_srcs=[_create_random_ascii_string(10), _create_random_ascii_string(10)])
         worklist_item.Modality = 'US'
-        worklist_item.SpecificCharacterSet = self._specific_charset
+        worklist_item.SpecificCharacterSet = 'ISO_IR 100'
         worklist_item.AccessionNumber = '123'
         worklist_item.PatientBirthDate = '19901015'
         worklist_item.PatientName = 'Clean^Exam'
@@ -168,4 +140,4 @@ class RandomWorklist:
 
     def _get_person_name(self):
         """ Create a random person name and truncate the name components according to Vivid bug """
-        return _random_person_name(32)[:_VIVID_HACK_MAX_PERSON_NAME]  # fix for wrong handling in EchoPAC/Scanner
+        return _random_person_name(32, self._fault_provider._get_random_language_string)[:_VIVID_HACK_MAX_PERSON_NAME]  # fix for wrong handling in EchoPAC/Scanner
